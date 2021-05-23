@@ -16,7 +16,7 @@ make O=out ARCH=arm64 rmx2020_defconfig
 PATH="$(pwd)/clang/clang-r353983c/bin:${PATH}:$(pwd)/los-4.9-32/bin:${PATH}:$(pwd)/los-4.9-64/bin:${PATH}" \
 make                  O=out \
                       ARCH=arm64 \
-                      CC="ccache clang" \
+                      CC="clang" \
                       CLANG_TRIPLE=aarch64-linux-gnu- \
                       CROSS_COMPILE="$(pwd)/los-4.9-64/bin/aarch64-linux-android-" \
                       CROSS_COMPILE_ARM32="$(pwd)/los-4.9-32/bin/arm-linux-androideabi-" \
