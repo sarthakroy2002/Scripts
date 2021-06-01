@@ -13,11 +13,11 @@ git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86
 
 make O=out ARCH=arm64 rmx2020_defconfig
 
-PATH="/tmp/kernel/clang/bin:${PATH}:/tmp/kernel/los-4.9-32/bin:${PATH}:/tmp/kernel/los-4.9-64/bin:${PATH}" \
+PATH="${PWD}/clang/bin:${PATH}:${PWD}/los-4.9-32/bin:${PATH}:${PWD}/los-4.9-64/bin:${PATH}" \
 make -j$(nproc --all) O=out \
                       ARCH=arm64 \
                       CC="clang" \
                       CLANG_TRIPLE=aarch64-linux-gnu- \
-                      CROSS_COMPILE="/tmp/kernel/los-4.9-64/bin/aarch64-linux-android-" \
-                      CROSS_COMPILE_ARM32="/tmp/kernel/los-4.9-32/bin/arm-linux-androideabi-" \
+                      CROSS_COMPILE="${PWD}/los-4.9-64/bin/aarch64-linux-android-" \
+                      CROSS_COMPILE_ARM32="${PWD}/los-4.9-32/bin/arm-linux-androideabi-" \
                       CONFIG_NO_ERROR_ON_MISMATCH=y
