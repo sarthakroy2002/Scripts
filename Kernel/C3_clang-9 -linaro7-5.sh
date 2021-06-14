@@ -6,7 +6,7 @@ export ARCH=arm64
 export KBUILD_BUILD_HOST=titan
 export KBUILD_BUILD_USER="sarthakroy2002"
 git clone --depth=1 https://github.com/sarthakroy2002/clang-r353983c1 clang
-git clone --depth=1 https://github.com/sarthakroy2002/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-gnu-6.3.1 los-4.9-64
+git clone --depth=1 https://github.com/sarthakroy2002/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-gnu-7.5 los-4.9-64
 
 [ -d "out" ] && rm -rf out || mkdir -p out
 
