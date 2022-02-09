@@ -60,18 +60,29 @@ function compile() {
 
 [ -d "out" ] && rm -rf out || mkdir -p out
 make O=out ARCH=arm64 RMX2020_defconfig
-make -j$(nproc --all) O=out \
-                      ARCH=arm64 \
-                      CC="clang" \
-                      CLANG_TRIPLE=aarch64-linux-gnu- \
-                      CROSS_COMPILE="${PWD}/los-4.9-64/bin/aarch64-linux-gnu-" \
-                      CROSS_COMPILE_ARM32="${PWD}/los-4.9-32/bin/arm-linux-gnueabihf-" \
-                      LD=ld.lld \
-                      AS=llvm-as \
-		              AR=llvm-ar \
-			          NM=llvm-nm \
-			          OBJCOPY=llvm-objcopy \
-                      CONFIG_NO_ERROR_ON_MISMATCH=y
+
+if [ $BRANCH = "R" ]; then
+	make -j$(nproc --all) O=out \
+                      	ARCH=arm64 \
+                      	CC="clang" \
+                      	CLANG_TRIPLE=aarch64-linux-gnu- \
+                      	CROSS_COMPILE="${PWD}/los-4.9-64/bin/aarch64-linux-gnu-" \
+                      	CROSS_COMPILE_ARM32="${PWD}/los-4.9-32/bin/arm-linux-gnueabihf-" \
+                      	LD=ld.lld \
+                      	AS=llvm-as \
+		      	AR=llvm-ar \
+		      	NM=llvm-nm \
+		      	OBJCOPY=llvm-objcopy \
+                   	CONFIG_NO_ERROR_ON_MISMATCH=y
+else
+	make -j$(nproc --all) O=out \
+                      	ARCH=arm64 \
+                      	CC="clang" \
+                      	CLANG_TRIPLE=aarch64-linux-gnu- \
+                      	CROSS_COMPILE="${PWD}/los-4.9-64/bin/aarch64-linux-gnu-" \
+                      	CROSS_COMPILE_ARM32="${PWD}/los-4.9-32/bin/arm-linux-gnueabihf-" \
+                      	CONFIG_NO_ERROR_ON_MISMATCH=y
+fi
 
     if ! [ -a "$IMAGE" ]; then
         finerr
