@@ -53,6 +53,8 @@ DEVICE="Realme C3/Narzo 10A"
 export DEVICE
 CODENAME="RMX2020"
 export CODENAME
+DEFCONFIG="RMX2020_defconfig"
+export DEFCONFIG
 COMMIT_HASH=$(git rev-parse --short HEAD)
 export COMMIT_HASH
 PROCS=$(nproc --all)
