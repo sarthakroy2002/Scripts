@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 echo "Cloning dependencies"
 rm -rf AnyKernel
-git clone --depth=1 https://github.com/kdrag0n/proton-clang clang
+if [ $BRANCH = "R" ]; then
+	git clone --depth=1 https://github.com/kdrag0n/proton-clang clang
+else
+	git clone --depth=1 https://github.com/sarthakroy2002/android_prebuilts_clang_host_linux-x86_clang-7612306 clang
+fi
 git clone --depth=1 https://github.com/sarthakroy2002/prebuilts_gcc_linux-x86_aarch64_aarch64-linaro-7 los-4.9-64
 git clone --depth=1 https://github.com/sarthakroy2002/linaro_arm-linux-gnueabihf-7.5 los-4.9-32
 echo "Done"
