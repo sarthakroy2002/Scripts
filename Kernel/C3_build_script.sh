@@ -94,7 +94,7 @@ fi
 # Zipping
 function zipping() {
     cd AnyKernel || exit 1
-    zip -r9 NEOLIT-Test-OSS-KERNEL-RMX2020-${TANGGAL}.zip *
+    zip -r9 NEOLIT-Test-OSS-$BRANCH-KERNEL-RMX2020-${TANGGAL}.zip *
     curl -sL https://git.io/file-transfer | sh
     ./transfer wet Test-OSS-KERNEL-RMX2020-NEOLIT.zip
     cd ..
