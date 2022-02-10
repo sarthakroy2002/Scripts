@@ -3,12 +3,7 @@
 # Dependencies
 deps() {
     echo "Cloning dependencies"
-    
-    if [ -d "AnyKernel" ];then
-	rm -rf AnyKernel
-	git clone --depth=1 https://github.com/sarthakroy2002/AnyKernel3.git AnyKernel
-    fi
-    
+        
     if [ ! -d "clang" ];then
 	if [ "${BRANCH}" = "R" ];then
 	    git clone --depth=1 https://github.com/kdrag0n/proton-clang clang
@@ -151,6 +146,7 @@ fi
         exit 1
     fi
     
+    git clone --depth=1 https://github.com/sarthakroy2002/AnyKernel3.git AnyKernel
     cp out/arch/arm64/boot/Image.gz-dtb AnyKernel
 }
 # Zipping
