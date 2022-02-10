@@ -28,7 +28,7 @@ deps() {
     echo "Done"
 }
 
-IMAGE=Image.gz-dtb
+IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb
 DATE=$(date +"%Y%m%d-%H%M")
 START=$(date +"%s")
 KERNEL_DIR=$(pwd)
@@ -147,11 +147,11 @@ else
 fi
 
     if ! [ -a "$IMAGE" ]; then
-        finderr
+        finerr
         exit 1
     fi
     
-    cp out/arch/${ARCH}/boot/${IMAGE} AnyKernel
+    cp out/arch/arm64/boot/Image.gz-dtb AnyKernel
 }
 # Zipping
 zipping() {
