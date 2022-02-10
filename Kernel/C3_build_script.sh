@@ -28,7 +28,7 @@ deps() {
     echo "Done"
 }
 
-IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb
+IMAGE=Image.gz-dtb
 DATE=$(date +"%Y%m%d-%H%M")
 START=$(date +"%s")
 KERNEL_DIR=$(pwd)
