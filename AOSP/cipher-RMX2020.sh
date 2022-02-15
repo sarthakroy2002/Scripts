@@ -54,7 +54,7 @@ export BOT_MSG_URL="https://api.telegram.org/bot$API_BOT/sendMessage"
 export BOT_BUILD_URL="https://api.telegram.org/bot$API_BOT/sendDocument"
 
 message() {
-        curl -s -X POST "$BOT_MSG_URL" -d chat_id="CHATID" \
+        curl -s -X POST "$BOT_MSG_URL" -d chat_id="$CHATID" \
         -d "parse_mode=html" \
         -d text="$1"
 }
