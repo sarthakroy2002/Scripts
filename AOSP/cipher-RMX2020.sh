@@ -15,8 +15,8 @@ txtbld=$(tput bold)
 txtrst=$(tput sgr0)
 bldgrn=${txtbld}$(tput setaf 2)
 
-DEVICE="$(sed -e "s/^.*_//" -e "s/-.*//" <<< "$LUNCH")"
-ROM_NAME="$(sed -e "s/_.*//" <<< "$LUNCH")"
+DEVICE="RMX2020"
+ROM_NAME="CIPHER"
 OUT="$(pwd)/out/target/product/$DEVICE"
 ERROR_LOG="out/error.log"
 
@@ -33,7 +33,7 @@ case $1 in
       • Just run './$0' for normal build
 Usage: ./build_rom.sh [OPTION]
 Example:
-    ./$0 -s -c or ./$0 --clean
+    ./$0 -c or ./$0 --clean
 
 Mandatory options:
     No option is mandatory!, just simply run the script without passing any parameter.
@@ -49,25 +49,19 @@ esac
 shift
 done
 
-# Exit if mandatory variables are not specified
-if [[ $LUNCH == "" ]] || [[ $MAKE_TARGET == "" ]]; then
-	echo -e "$red\nBRUH: Specify all mandatory variables! Exiting...$txtrst\n"
-	exit 1
-fi
-
 # Setup Telegram Env
 export BOT_MSG_URL="https://api.telegram.org/bot$API_BOT/sendMessage"
 export BOT_BUILD_URL="https://api.telegram.org/bot$API_BOT/sendDocument"
 
 message() {
-        curl -s -X POST "$BOT_MSG_URL" -d chat_id="$2" \
+        curl -s -X POST "$BOT_MSG_URL" -d chat_id="CHATID" \
         -d "parse_mode=html" \
         -d text="$1"
 }
 
 error() {
         curl --progress-bar -F document=@"$1" "$BOT_BUILD_URL" \
-        -F chat_id="$2" \
+        -F chat_id="$CHATID" \
         -F "disable_web_page_preview=true" \
         -F "parse_mode=html"
 }
