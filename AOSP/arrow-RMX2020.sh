@@ -4,7 +4,8 @@
 LUNCH="arrow_RMX2020" # (MANDATORY) Lunch command , you should not leave it empty device codename get pulled from the command! e.g. lineage_ysl-userdebug
 MAKE_TARGET="bacon" # (MANDATORY) Compilation target. e.g. bacon or bootimage [Default is bacon!]
 CHATID="-1001453887914" # Your telegram group/channel chatid
-API_BOT="" # Your HTTP API bot token
+echo 'Enter your API Bot id:'
+read API_BOT
 
 # Colour setup
 red=$(tput setaf 1)
