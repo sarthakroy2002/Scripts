@@ -11,11 +11,11 @@ deps() {
 	    git clone --depth=1 https://github.com/sarthakroy2002/android_prebuilts_clang_host_linux-x86_clang-7612306 clang
     
 	    if [ ! -d "los-4.9-64" ];then
-		git clone --depth=1 https://github.com/sarthakroy2002/prebuilts_gcc_linux-x86_aarch64_aarch64-linaro-7 los-4.9-64
+		git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 los-4.9-64
 	    fi
 	    
 	    if [ ! -d "los-4.9-32" ];then
-		git clone --depth=1 https://github.com/sarthakroy2002/linaro_arm-linux-gnueabihf-7.5 los-4.9-32
+		git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9 los-4.9-32
 	    fi
 	fi
     fi
@@ -136,8 +136,8 @@ else
                       	ARCH=$ARCH \
                       	CC="clang" \
                       	CLANG_TRIPLE=aarch64-linux-gnu- \
-                      	CROSS_COMPILE="${PWD}/los-4.9-64/bin/aarch64-linux-gnu-" \
-                      	CROSS_COMPILE_ARM32="${PWD}/los-4.9-32/bin/arm-linux-gnueabihf-" \
+                      	CROSS_COMPILE="${PWD}/los-4.9-64/bin/aarch64-linux-android-" \
+                      	CROSS_COMPILE_ARM32="${PWD}/los-4.9-32/bin/arm-linux-androideabi-" \
                       	CONFIG_NO_ERROR_ON_MISMATCH=y
 fi
 
