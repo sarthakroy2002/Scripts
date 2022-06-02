@@ -126,7 +126,6 @@ if [ "${BRANCH}" = "R" ] || [ "${BRANCH}" = "Q" ]; then
                       	CROSS_COMPILE=aarch64-linux-gnu- \
                       	CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
                       	LD=ld.lld \
-                      	AS=llvm-as \
 		      	AR=llvm-ar \
 		      	NM=llvm-nm \
 		      	OBJCOPY=llvm-objcopy \
