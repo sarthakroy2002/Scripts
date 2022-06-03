@@ -129,6 +129,8 @@ if [ "${BRANCH}" = "R" ] || [ "${BRANCH}" = "Q" ]; then
 		      	AR=llvm-ar \
 		      	NM=llvm-nm \
 		      	OBJCOPY=llvm-objcopy \
+			OBJDUMP=llvm-objdump \
+			STRIP=llvm-strip
                    	CONFIG_NO_ERROR_ON_MISMATCH=y
 else
 	make -j"${PROCS}" O=out \
