@@ -5,7 +5,7 @@ deps() {
     echo "Cloning dependencies"
         
     if [ ! -d "clang" ];then
-	if [ "${BRANCH}" = "R" ] || [ "${BRANCH}" = "Q" ];then
+	if [ "${BRANCH}" = "R" ];then
 	    git clone --depth=1 https://gitlab.com/dakkshesh07/neutron-clang clang
 	else
 	    git clone --depth=1 https://github.com/sarthakroy2002/android_prebuilts_clang_host_linux-x86_clang-r437112 clang
@@ -119,7 +119,7 @@ compile() {
     
 make O=out ARCH="${ARCH}" "${DEFCONFIG}"
 
-if [ "${BRANCH}" = "R" ] || [ "${BRANCH}" = "Q" ]; then
+if [ "${BRANCH}" = "R" ]; then
 	make -j"${PROCS}" O=out \
                       	ARCH=$ARCH \
                       	CC="clang" \
