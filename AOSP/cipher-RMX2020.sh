@@ -1,152 +1,52 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Build info.
-LUNCH="cipher_RMX2020" # (MANDATORY) Lunch command , you should not leave it empty device codename get pulled from the command! e.g. lineage_ysl-userdebug
-MAKE_TARGET="bacon" # (MANDATORY) Compilation target. e.g. bacon or bootimage [Default is bacon!]
-CHATID="-1001453887914" # Your telegram group/channel chatid
-echo 'Enter your API Bot id:'
-read API_BOT
+BASE_DIR="$(pwd)"
+SOURCEDIR="${BASE_DIR}/work"
 
-# Colour setup
-red=$(tput setaf 1)
-grn=$(tput setaf 2)
-ylw=$(tput setaf 3)
-txtbld=$(tput bold)
-txtrst=$(tput sgr0)
-bldgrn=${txtbld}$(tput setaf 2)
+curl https://rclone.org/install.sh | sudo bash
+git config --global user.email "sarthakroy2002@gmail.com" && git config --global user.name "Sarthak Roy"
+rm -rf /builds/sarthakroy2002/boldbomt/work
+df -h
+mkdir -p "${SOURCEDIR}"
+cd "${SOURCEDIR}"
+export ALLOW_MISSING_DEPENDENCIES=true
+repo init --depth=1 -u https://github.com/CipherOS/android_manifest.git -b twelve-L
+repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
 
-DEVICE="RMX2020"
-ROM_NAME="CIPHER"
-OUT="$(pwd)/out/target/product/$DEVICE"
-ERROR_LOG="out/error.log"
+cd frameworks/base
+wget https://raw.githubusercontent.com/sarthakroy2002/random-stuff/main/Patches/Fix-brightness-slider-curve-for-some-devices-a12l.patch
+patch -p1 < *.patch
+cd ../..
 
-# Parameters
-while [[ $# -gt 0 ]]
-do
+cd frameworks/av
+git fetch https://review.arrowos.net/ArrowOS/android_frameworks_av refs/changes/11/17011/1
+git cherry-pick FETCH_HEAD
+git fetch https://review.arrowos.net/ArrowOS/android_frameworks_av refs/changes/99/16799/1
+git cherry-pick FETCH_HEAD
+cd ../..
 
-case $1 in
-    -c|--clean)
-    CLEAN="1"
-    ;;
-    -h|--help)
-    echo -e "\nNote: • You should specify all the mandatory variables in the script!
-      • Just run './$0' for normal build
-Usage: ./build_rom.sh [OPTION]
-Example:
-    ./$0 -c or ./$0 --clean
+git clone --depth=1 https://github.com/sarthakroy2002/vendor_realme_RMX2020.git vendor/realme/RMX2020
+git clone --depth=1 https://github.com/CipherOS-Devices/device_realme_RMX2020.git device/realme/RMX2020
+git clone --depth=1 https://github.com/ArrowOS-Devices/android_kernel_realme_RMX2020 kernel/realme/RMX2020
+git clone --depth=1 https://github.com/sarthakroy2002/vendor_realme_RMX2020-ims -b twelve-rmui1 vendor/realme/RMX2020-ims
 
-Mandatory options:
-    No option is mandatory!, just simply run the script without passing any parameter.
+. build/envsetup.sh
+export CIPHER_GAPPS=true
+lunch cipher_RMX2020-userdebug
+mka clean
+lunch cipher_RMX2020-userdebug
+mka bacon
 
-Options:
-    -c, --clean           Clean build directory before compilation.\n"
-    exit 1
-    ;;
-    *) echo -e "$red\nUnknown parameter passed: $1$txtrst\n"
-    exit 1
-    ;;
-esac
-shift
-done
+cd out/target/product/RMX2020
+wget https://gist.githubusercontent.com/noobyysauraj/8a0a66cc3fd3f5a513a4eee3f5625b38/raw/a079327aa326cf916df6704d28778f81566a0b82/rclone.conf
+mkdir $HOME/.config/rclone/
+mv rclone.conf $HOME/.config/rclone/
+rclone -P copy CipherOS*OFFICIAL*.zip oned:/MY_BOMT_STUFFS/sarthak/CipherOS
 
-# Setup Telegram Env
-export BOT_MSG_URL="https://api.telegram.org/bot$API_BOT/sendMessage"
-export BOT_BUILD_URL="https://api.telegram.org/bot$API_BOT/sendDocument"
+cd ../../../..
+cd vendor/cipher/build/tools
+CURRDATE="date +%d_%b_%Y_%H-%M-%p"
+bash ota.sh RMX2020 > OTA_"${CURRDATE}".txt
+rclone -P copy OTA_"${CURRDATE}".txt oned:/MY_BOMT_STUFFS/sarthak/CipherOS
 
-message() {
-        curl -s -X POST "$BOT_MSG_URL" -d chat_id="$CHATID" \
-        -d "parse_mode=html" \
-        -d text="$1"
-}
-
-error() {
-        curl --progress-bar -F document=@"$1" "$BOT_BUILD_URL" \
-        -F chat_id="$CHATID" \
-        -F "disable_web_page_preview=true" \
-        -F "parse_mode=html"
-}
-
-# Setup we.tl
-up(){
-	curl -sL https://git.io/file-transfer | sh
-	./transfer wet $1 | tee -a upload.log
-}
-
-# Clean old logs if found
-if [ -f "$ERROR_LOG" ]; then
-	rm "$ERROR_LOG"
-fi
-
-if [ -f log.txt ]; then
-	rm log.txt
-fi
-
-if [ -f upload.log ]; then
-	rm upload.log
-fi
-
-if [[ -n $CLEAN ]]; then
-	echo -e "$bldgrn\nClearing out directory...$txtrst\n"
-	rm -rf out
-fi
-
-# Send build start message on tg
-read -r -d '' start <<EOT
-<b>Build status: Started</b>
-
-<b>Rom:</b> <code>$ROM_NAME</code>
-<b>Device:</b> <code>$DEVICE</code>
-<b>Source directory:</b> <code>$(pwd)</code>
-<b>Make target:</b> <code>$MAKE_TARGET</code>
-EOT
-
-message "$start" "$CHATID"
-
-START=$(TZ=Asia/Kolkata date +"%s")
-
-# Build
-	echo -e "$bldgrn\nSetting up build environment...$txtrst"
-        source build/envsetup.sh
-
-	echo -e "$bldgrn\nLunching $DEVICE...$txtrst"
-        lunch "$LUNCH"
-
-	if [ $? -eq 0 ]; then
-		echo -e "$bldgrn\nStarting build...$txtrst"
-	        mka "$MAKE_TARGET" | tee log.txt
-	else
-		echo -e "$bldgrn\nLunching $DEVICE failed...$txtrst"
-		message "<b>Build status: Failed</b>%0A%0A<b>Failed at lunching $DEVICE!</b>" "$CHATID"
-		exit 1
-	fi
-
-# Upload Build
-END=$(TZ=Asia/Kolkata date +"%s")
-DIFF=$(( END - START ))
-HOURS=$(($DIFF / 3600 ))
-MINS=$((($DIFF % 3600) / 60))
-
-if [ -s out/error.log ]; then
-	read -r -d '' failed <<EOT
-	<b>Build status: Failed</b>%0A%0ACheck log below!
-EOT
-	message "$failed" "$CHATID"
-	error "$ERROR_LOG" "$CHATID"
-
-else
-	ZIP_PATH=$(ls "$OUT"/*OFFICIAL*.zip | tail -n -1)
-	echo -e "$bldgrn\nUploading zip...$txtrst\n"
-	zip=$(up $ZIP_PATH)
-	filename="$(basename $ZIP_PATH)"
-	md5sum=$(md5sum $ZIP_PATH | awk '{print $1}')
-	size=$(ls -sh $ZIP_PATH | awk '{print $1}')
-	url=$(cat upload.log | grep 'Download' | awk '{ print $3 }')
-
-	read -r -d '' final <<EOT
-	<b>Build status: Completed</b>%0A<b>Time elapsed:</b> <i>$HOURS hours and $MINS minutes</i>%0A%0A<b>Size:</b> <code>$size</code>%0A<b>MD5:</b> <code>$md5sum</code>%0A<b>Download:</b> <a href="$url">${filename}</a>
-EOT
-
-	message "$final" "$CHATID"
-	error "log.txt" "$CHATID"
-
-fi
+exit 0
