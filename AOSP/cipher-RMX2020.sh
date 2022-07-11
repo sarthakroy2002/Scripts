@@ -3,13 +3,11 @@
 BASE_DIR="$(pwd)"
 SOURCEDIR="${BASE_DIR}/work"
 
-curl https://rclone.org/install.sh | sudo bash
 git config --global user.email "sarthakroy2002@gmail.com" && git config --global user.name "Sarthak Roy"
-rm -rf /builds/sarthakroy2002/boldbomt/work
-df -h
 mkdir -p "${SOURCEDIR}"
 cd "${SOURCEDIR}"
 export ALLOW_MISSING_DEPENDENCIES=true
+
 repo init --depth=1 -u https://github.com/CipherOS/android_manifest.git -b twelve-L
 repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
 
@@ -31,22 +29,43 @@ git clone --depth=1 https://github.com/ArrowOS-Devices/android_kernel_realme_RMX
 git clone --depth=1 https://github.com/sarthakroy2002/vendor_realme_RMX2020-ims -b twelve-rmui1 vendor/realme/RMX2020-ims
 
 . build/envsetup.sh
-export CIPHER_GAPPS=true
-lunch cipher_RMX2020-userdebug
-mka clean
+export CIPHER_GAPPS=false
 lunch cipher_RMX2020-userdebug
 mka bacon
 
 cd out/target/product/RMX2020
-wget https://gist.githubusercontent.com/noobyysauraj/8a0a66cc3fd3f5a513a4eee3f5625b38/raw/a079327aa326cf916df6704d28778f81566a0b82/rclone.conf
-mkdir $HOME/.config/rclone/
-mv rclone.conf $HOME/.config/rclone/
-rclone -P copy CipherOS*OFFICIAL*.zip oned:/MY_BOMT_STUFFS/sarthak/CipherOS
+curl -sL https://git.io/file-transfer | sh
+./transfer wet *.zip
+
+cd ../../../..
+
+cd vendor/cipher/build/tools
+CURRDATE="date +%d_%b_%Y_%H-%M-%p"
+bash ota.sh RMX2020 > OTA_"${CURRDATE}".txt
+curl -sL https://git.io/file-transfer | sh
+./transfer wet *.txt
+
+cd ../../../..
+
+echo '==========='
+echo 'Gapps build'
+echo '==========='
+
+. build/envsetup.sh
+export CIPHER_GAPPS=true
+mka installclean
+lunch cipher_RMX2020-userdebug
+mka bacon
+
+cd out/target/product/RMX2020
+curl -sL https://git.io/file-transfer | sh
+./transfer wet *.zip
 
 cd ../../../..
 cd vendor/cipher/build/tools
 CURRDATE="date +%d_%b_%Y_%H-%M-%p"
 bash ota.sh RMX2020 > OTA_"${CURRDATE}".txt
-rclone -P copy OTA_"${CURRDATE}".txt oned:/MY_BOMT_STUFFS/sarthak/CipherOS
+curl -sL https://git.io/file-transfer | sh
+./transfer wet *.txt
 
 exit 0
