@@ -3,7 +3,6 @@
 BASE_DIR="$(pwd)"
 SOURCEDIR="${BASE_DIR}/work"
 
-curl https://rclone.org/install.sh | sudo bash
 git config --global user.email "sarthakroy2002@gmail.com" && git config --global user.name "Sarthak Roy"
 rm -rf "${SOURCEDIR}"
 df -h
@@ -16,16 +15,25 @@ repo sync --force-sync
 
 git clone https://github.com/sarthakroy2002/android_recovery_realme_RMX2020 device/realme/RMX2020
 
+cd bootable/recovery
+git fetch https://gerrit.twrp.me/android_bootable_recovery refs/changes/05/5405/21 && git cherry-pick FETCH_HEAD
+git fetch https://gerrit.twrp.me/android_bootable_recovery refs/changes/39/5639/1 && git cherry-pick FETCH_HEAD
+git fetch https://github.com/HemanthJabalpuri/android_bootable_recovery test
+git cherry-pick 6d5c365617778d107ccc6b32b55238715a06d0bc
+cd ../..
+cd system/vold
+git fetch https://gerrit.twrp.me/android_system_vold refs/changes/40/5540/4 && git cherry-pick FETCH_HEAD
+cd ../..
+
 . build/envsetup.sh
-lunch twrp_RMX2020-userdebug
+lunch twrp_RMX2020-eng
 mka clean
-lunch twrp_RMX2020-userdebug
-mka bacon
+lunch twrp_RMX2020-eng
+mka recoveryimage
 
 cd out/target/product/RMX2020
-wget https://gist.githubusercontent.com/noobyysauraj/8a0a66cc3fd3f5a513a4eee3f5625b38/raw/a079327aa326cf916df6704d28778f81566a0b82/rclone.conf
-mkdir $HOME/.config/rclone/
-mv rclone.conf $HOME/.config/rclone/
-rclone -P copy recovery.img oned:/MY_BOMT_STUFFS/sarthak/TWRP
+
+curl -sL https://git.io/file-transfer | sh
+./transfer wet recovery.img
 
 exit 0
