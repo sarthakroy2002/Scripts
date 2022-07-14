@@ -5,9 +5,7 @@ rm -rf /cache/*
 BASE_DIR="$(pwd)"
 SOURCEDIR="${BASE_DIR}/work"
 
-curl https://rclone.org/install.sh | sudo bash
 git config --global user.email "sarthakroy2002@gmail.com" && git config --global user.name "Sarthak Roy"
-rm -rf /builds/sarthakroy2002/boldbomt/work
 df -h
 mkdir -p "${SOURCEDIR}"
 cd "${SOURCEDIR}"
