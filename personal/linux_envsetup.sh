@@ -18,6 +18,9 @@ echo 'Your Git config is set successfully'
 # git config --global credential.helper store
 # echo 'Git will store your credentials globally'
 
+# Install repo
+mkdir ~/bin && PATH=~/bin:$PATH && curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo && chmod a+x ~/bin/repo
+
 # Setup Change-id hooks
 git config --global init.templatedir '~/.git-templates'
 mkdir -p ~/.git-templates/hooks
