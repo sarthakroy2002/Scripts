@@ -7,8 +7,10 @@ deps() {
     if [ ! -d "clang" ];then
 	if [ "${BRANCH}" = "R" ];then
 	    git clone --depth=1 https://gitlab.com/dakkshesh07/neutron-clang clang
+	    KBUILD_COMPILER_STRING="Neutron Clang"
 	else
 	    git clone --depth=1 https://github.com/sarthakroy2002/android_prebuilts_clang_host_linux-x86_clang-r437112 clang
+	    KBUILD_COMPILER_STRING="Clang 14.0.0"
     
 	    if [ ! -d "los-4.9-64" ];then
 		git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 los-4.9-64
@@ -19,7 +21,7 @@ deps() {
 	    fi
 	fi
     fi
-    
+    sudo apt install -y ccache
     echo "Done"
 }
 
@@ -27,14 +29,13 @@ IMAGE=$(pwd)/out/arch/arm64/boot/Image.gz-dtb
 DATE=$(date +"%Y%m%d-%H%M")
 START=$(date +"%s")
 KERNEL_DIR=$(pwd)
-CACHE=0
+CACHE=1
 export CACHE
 if [ "${BRANCH}" = "R" ];then
     PATH="${PWD}/clang/bin:${PATH}"
 else
     PATH="${PWD}/clang/bin:${PATH}:${PWD}/los-4.9-32/bin:${PATH}:${PWD}/los-4.9-64/bin:${PATH}"
 fi
-KBUILD_COMPILER_STRING=$("${KERNEL_DIR}"/clang/bin/clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g')
 export KBUILD_COMPILER_STRING
 ARCH=arm64
 export ARCH
@@ -42,7 +43,11 @@ KBUILD_BUILD_HOST=neolit
 export KBUILD_BUILD_HOST
 KBUILD_BUILD_USER="sarthakroy2002"
 export KBUILD_BUILD_USER
-REPO_URL="https://github.com/sarthakroy2002/kernel_realme_RMX2020"
+if [ "${BRANCH}" = "arrow-12.1" ];then
+	REPO_URL="https://github.com/ArrowOS-Devices/android_kernel_realme_RMX2020"
+else
+	REPO_URL="https://github.com/sarthakroy2002/kernel_realme_RMX2020"
+fi
 export REPO_URL
 DEVICE="Realme C3/Narzo 10A"
 export DEVICE
@@ -85,8 +90,8 @@ sticker() {
 # Send info plox channel
 sendinfo() {
     tg "
-• CI Build •
-*Building on*: \`server\`
+• NEOLIT CI Build •
+*Building on*: \`Github actions\`
 *Date*: \`${DATE}\`
 *Device*: \`${DEVICE} (${CODENAME})\`
 *Branch*: \`$(git rev-parse --abbrev-ref HEAD)\`
@@ -142,7 +147,7 @@ else
 fi
 
     if ! [ -a "$IMAGE" ]; then
-        finerr
+        finderr
         exit 1
     fi
     
