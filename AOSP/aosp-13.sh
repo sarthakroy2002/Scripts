@@ -9,7 +9,7 @@ df -h
 mkdir -p "${SOURCEDIR}"
 cd "${SOURCEDIR}"
 export ALLOW_MISSING_DEPENDENCIES=true
-repo init -u https://android.googlesource.com/platform/manifest -b android-13.0.0_r2
+repo init -u https://android.googlesource.com/platform/manifest -b android-13.0.0_r3
 repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
 
 cd system/core 
