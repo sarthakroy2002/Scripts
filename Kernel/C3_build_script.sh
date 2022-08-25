@@ -45,6 +45,8 @@ KBUILD_BUILD_USER="sarthakroy2002"
 export KBUILD_BUILD_USER
 if [ "${BRANCH}" = "arrow-12.1" ];then
 	REPO_URL="https://github.com/ArrowOS-Devices/android_kernel_realme_RMX2020"
+else if [ "${BRANCH}" = "arrow-13.0" ];then
+	REPO_URL="https://github.com/ArrowOS-Devices/android_kernel_realme_RMX2020"
 else
 	REPO_URL="https://github.com/sarthakroy2002/kernel_realme_RMX2020"
 fi
