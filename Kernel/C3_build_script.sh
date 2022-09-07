@@ -5,7 +5,7 @@ deps() {
     echo "Cloning dependencies"
         
     if [ ! -d "clang" ];then
-	if [ "${BRANCH}" = "R" ];then
+	if [ "${BRANCH}" = "R" ] || [ "${BRANCH}" = "arrow-13.0-llvm" ];then
 	    git clone --depth=1 https://gitlab.com/dakkshesh07/neutron-clang clang
 	    KBUILD_COMPILER_STRING="Neutron Clang"
 	else
@@ -126,12 +126,15 @@ compile() {
     
 make O=out ARCH="${ARCH}" "${DEFCONFIG}"
 
-if [ "${BRANCH}" = "R" ]; then
+if [ "${BRANCH}" = "R" ] || [ "${BRANCH}" = "arrow-13.0-llvm" ];then
 	make -j"${PROCS}" O=out \
                       	ARCH=$ARCH \
                       	CC="clang" \
                       	CROSS_COMPILE=aarch64-linux-gnu- \
                       	CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
+			LLVM=1 \
+			LLVM_IAS=1 \
+			LD=ld.lld \
 		      	AR=llvm-ar \
 		      	NM=llvm-nm \
 		      	OBJCOPY=llvm-objcopy \
