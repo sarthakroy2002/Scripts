@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-12.1
 repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
 repo sync --force-sync

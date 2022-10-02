@@ -12,15 +12,15 @@ cd "${SOURCEDIR}"
 repo init -u https://android.googlesource.com/platform/manifest -b android-13.0.0_r6
 repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
 
-cd system/core 
+cd system/core
 git fetch https://review.arrowos.net/ArrowOS/android_system_core refs/changes/83/16483/1 && git cherry-pick FETCH_HEAD
 cd "${SOURCEDIR}"
 
 cd packages/modules/Bluetooth && git fetch https://review.arrowos.net/ArrowOS/android_packages_modules_Bluetooth refs/changes/43/18143/1 && git cherry-pick FETCH_HEAD && git fetch https://review.arrowos.net/ArrowOS/android_packages_modules_Bluetooth refs/changes/44/18144/1 && git cherry-pick FETCH_HEAD && cd "${SOURCEDIR}"
 
-cd frameworks/opt/net/ims && git fetch https://github.com/AOSP-13-RMX2020/frameworks_opt_net_ims && git cherry-pick 0e8a88ecdbf05509f84bd136c63d56791dbf78c3^..5c6179402cd8a5fc29dbd789e59a5ddf5546c1b3 && cd "${SOURCEDIR}" 
+cd frameworks/opt/net/ims && git fetch https://github.com/AOSP-13-RMX2020/frameworks_opt_net_ims && git cherry-pick 0e8a88ecdbf05509f84bd136c63d56791dbf78c3^..5c6179402cd8a5fc29dbd789e59a5ddf5546c1b3 && cd "${SOURCEDIR}"
 
-cd packages/modules/Wifi && git fetch https://github.com/AOSP-13-RMX2020/packages_modules_Wifi && git cherry-pick 1315ccb757bd2d7c63b4815ab77e04535d2b7750^..6b341eefeb1127a97dc3b77a853e30ed7630be30 && cd "${SOURCEDIR}" 
+cd packages/modules/Wifi && git fetch https://github.com/AOSP-13-RMX2020/packages_modules_Wifi && git cherry-pick 1315ccb757bd2d7c63b4815ab77e04535d2b7750^..6b341eefeb1127a97dc3b77a853e30ed7630be30 && cd "${SOURCEDIR}"
 
 cd frameworks/opt/telephony && git fetch https://github.com/AOSP-13-RMX2020/frameworks_opt_telephony && git cherry-pick 3d7ef06b1370b98fc9893693a23b2f350a8d912d && cd "${SOURCEDIR}"
 
@@ -43,7 +43,7 @@ git clone --depth=1 https://github.com/sarthakroy2002/vendor_realme_RMX2020.git 
 git clone --depth=1 https://github.com/sarthakroy2002/device_realme_RMX2020.git -b AOSP.MASTER device/realme/RMX2020
 git clone --depth=1 https://github.com/ArrowOS/android_device_mediatek_sepolicy_vndr -b arrow-12.1 device/mediatek/sepolicy_vndr
 git clone --depth=1 https://github.com/sarthakroy2002/kernel_mediatek_common-headers kernel/mediatek/common-headers
-git clone --depth=1 https://github.com/LineageOS/android_packages_resources_devicesettings packages/resources/devicesettings 
+git clone --depth=1 https://github.com/LineageOS/android_packages_resources_devicesettings packages/resources/devicesettings
 
 source build/envsetup.sh
 lunch RMX2020-eng

@@ -16,7 +16,7 @@ git fetch https://github.com/realme-mt6785-devs/android_frameworks_base
 git cherry-pick d8a4c380212fd9fdf3e92c04578b8c0e14d8f1aa
 git cherry-pick c21a0f11773774329c4094238d1e0a4adc160b81
 wget https://raw.githubusercontent.com/sarthakroy2002/random-stuff/main/Patches/Fix-brightness-slider-curve-for-some-devices-a12l.patch
-patch -p1 < *.patch
+patch -p1 <*.patch
 cd "${SOURCEDIR}"
 
 cd frameworks/av
@@ -33,7 +33,7 @@ cd "${SOURCEDIR}"
 
 cd frameworks/opt/net/ims
 git fetch https://github.com/AOSP-12-RMX2020/frameworks_opt_net_ims
-git cherry-pick 4f35ccb8bf0362c31bf5f074bcb7070da660412a^..3fe1cb7b6b2673adfce2b9232dfaf81375398efb 
+git cherry-pick 4f35ccb8bf0362c31bf5f074bcb7070da660412a^..3fe1cb7b6b2673adfce2b9232dfaf81375398efb
 cd "${SOURCEDIR}"
 
 cd packages/modules/Wifi
@@ -48,7 +48,7 @@ cd "${SOURCEDIR}"
 
 cd vendor/lineage
 wget https://raw.githubusercontent.com/sarthakroy2002/random-stuff/main/Patches/0001-Device-Specific-patches.patch
-patch -p1 < *.patch
+patch -p1 <*.patch
 cd "${SOURCEDIR}"
 
 git clone --depth=1 https://github.com/sarthakroy2002/vendor_realme_RMX2020.git vendor/realme/RMX2020
