@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #########################    CONFIGURATION    ##############################
 
@@ -41,31 +41,27 @@ W='\033[1;37m'
 ################################   MISC   ##################################
 
 # functions
-error()
-{
+error() {
 	echo -e ""
 	echo -e "$R ${FUNCNAME[0]}: $W" "$@"
 	echo -e ""
 	exit 1
 }
 
-success()
-{
+success() {
 	echo -e ""
 	echo -e "$G ${FUNCNAME[1]}: $W" "$@"
 	echo -e ""
 	exit 0
 }
 
-inform()
-{
+inform() {
 	echo -e ""
 	echo -e "$B ${FUNCNAME[1]}: $W" "$@" "$G"
 	echo -e ""
 }
 
-muke()
-{
+muke() {
 	if [[ -z $COMPILER || -z $COMPILER32 ]]; then
 		error "Compiler is missing"
 	fi
@@ -76,8 +72,7 @@ muke()
 	fi
 }
 
-usage()
-{
+usage() {
 	inform " ./AtomX.sh <arg>
 		--compiler   Sets the compiler to be used.
 		--compiler32 Sets the 32bit compiler to be used,
@@ -96,8 +91,7 @@ usage()
 
 ############################################################################
 
-compiler_setup()
-{
+compiler_setup() {
 	############################  COMPILER SETUP  ##############################
 	# default to clang
 	CC='clang'
@@ -110,7 +104,7 @@ compiler_setup()
 	fi
 
 	C_NAME=$("$LLVM_PATH"/$CC --version | head -n 1 | perl -pe 's/\(http.*?\)//gs')
-	if [[ "$COMPILER32" == "gcc" ]]; then
+	if [[ $COMPILER32 == "gcc" ]]; then
 		MAKE_ARGS+=("CC_COMPAT=$TLDR/gcc-arm/bin/arm-eabi-gcc" "CROSS_COMPILE_COMPAT=$TLDR/gcc-arm/bin/arm-eabi-")
 		C_NAME_32=$($(echo "${MAKE_ARGS[@]}" | sed s/' '/'\n'/g | grep CC_COMPAT | cut -c 11-) --version | head -n 1)
 	else
@@ -131,8 +125,7 @@ compiler_setup()
 	############################################################################
 }
 
-config_generator()
-{
+config_generator() {
 	#########################  .config GENERATOR  ############################
 	if [[ -z $CODENAME ]]; then
 		error 'Codename not present connot proceed'
@@ -160,8 +153,7 @@ config_generator()
 	############################################################################
 }
 
-config_regenerator()
-{
+config_regenerator() {
 	########################  DEFCONFIG REGENERATOR  ###########################
 	config_generator
 
@@ -175,8 +167,7 @@ config_regenerator()
 	############################################################################
 }
 
-obj_builder()
-{
+obj_builder() {
 	##############################  OBJ BUILD  #################################
 	if [[ $OBJ == "" ]]; then
 		error "obj not defined"
@@ -185,7 +176,7 @@ obj_builder()
 	config_generator
 
 	inform "Building $OBJ"
-	if [[ "$OBJ" =~ "defconfig" ]]; then
+	if [[ $OBJ =~ "defconfig" ]]; then
 		muke "$OBJ"
 	else
 		muke -j"$(nproc)" INSTALL_HDR_PATH="headers" "$OBJ"
@@ -193,14 +184,13 @@ obj_builder()
 	if [[ $TEST == "1" ]]; then
 		rm -rf arch/arm64/configs/vendor/lahaina-qgki_defconfig
 	fi
-	if [[ "$DTB_ZIP" != "1" ]]; then
+	if [[ $DTB_ZIP != "1" ]]; then
 		exit 0
 	fi
 	############################################################################
 }
 
-dtb_zip()
-{
+dtb_zip() {
 	##############################  DTB BUILD  #################################
 	obj_builder
 	source work/.config
@@ -221,10 +211,9 @@ dtb_zip()
 	############################################################################
 }
 
-kernel_builder()
-{
+kernel_builder() {
 	##################################  BUILD  #################################
-	if [[ "$BUILD" == "clean" ]]; then
+	if [[ $BUILD == "clean" ]]; then
 		inform "Cleaning work directory, please wait...."
 		muke -s clean mrproper distclean
 	fi
@@ -268,8 +257,7 @@ kernel_builder()
 	############################################################################
 }
 
-zipper()
-{
+zipper() {
 	####################################  ZIP  #################################
 	TARGET="$(muke image_name -s)"
 
@@ -295,20 +283,20 @@ zipper()
 		MOD_PATH="work/modules/lib/modules/$MOD_NAME"
 		sed -i 's/\(kernel\/[^: ]*\/\)\([^: ]*\.ko\)/\/vendor\/lib\/modules\/\2/g' "$MOD_PATH"/modules.dep
 		sed -i 's/.*\///g' "$MOD_PATH"/modules.order
-		if [[ "$DRM_VENDOR_MODULE" == "1" ]]; then
+		if [[ $DRM_VENDOR_MODULE == "1" ]]; then
 			DRM_AS_MODULE=1
 			if [ ! -d "$AK3_DIR"/vendor_ramdisk/lib/modules/ ]; then
 				VENDOR_RAMDISK_CREATE=1
 				mkdir -p "$AK3_DIR"/vendor_ramdisk/lib/modules/
 			fi
 			mv "$(find "$MOD_PATH" -name 'msm_drm.ko')" "$AKVRD"
-			grep drm "$MOD_PATH/modules.alias" > "$AKVRD"/modules.alias
-			grep drm "$MOD_PATH/modules.dep" | sed 's/^........//' > "$AKVRD"/modules.dep
-			grep drm "$MOD_PATH/modules.softdep" > "$AKVRD"/modules.softdep
-			grep drm "$MOD_PATH/modules.order" > "$AKVRD"/modules.load
+			grep drm "$MOD_PATH/modules.alias" >"$AKVRD"/modules.alias
+			grep drm "$MOD_PATH/modules.dep" | sed 's/^........//' >"$AKVRD"/modules.dep
+			grep drm "$MOD_PATH/modules.softdep" >"$AKVRD"/modules.softdep
+			grep drm "$MOD_PATH/modules.order" >"$AKVRD"/modules.load
 			sed -i s/split_boot/dump_boot/g "$AK3_DIR"/anykernel.sh
 		fi
-		cp  $(find "$MOD_PATH" -name '*.ko') "$AKVDR"/
+		cp $(find "$MOD_PATH" -name '*.ko') "$AKVDR"/
 		cp "$MOD_PATH"/modules.{alias,dep,softdep} "$AKVDR"/
 		cp "$MOD_PATH"/modules.order "$AKVDR"/modules.load
 	fi
@@ -359,65 +347,65 @@ zipper()
 if [[ -z $* ]]; then
 	usage
 fi
-if [[ "$*" =~ "--log" ]]; then
+if [[ $* =~ "--log" ]]; then
 	LOG=1
 fi
-if [[ "$*" =~ "--silence" ]]; then
+if [[ $* =~ "--silence" ]]; then
 	MAKE_ARGS+=("-s")
 fi
 for arg in "$@"; do
 	case "${arg}" in
-		"--compiler="*)
-			COMPILER=${arg#*=}
-			COMPILER=${COMPILER,,}
-			if [[ -z "$COMPILER" ]]; then
-				usage
-				break
-			fi
-			;&
-		"--compiler32="*)
-			COMPILER32=${arg#*=}
-			COMPILER32=${COMPILER32,,}
-			if [[ -z "$COMPILER32" ]]; then
-				COMPILER32="clang"
-			fi
-			compiler_setup
+	"--compiler="*)
+		COMPILER=${arg#*=}
+		COMPILER=${COMPILER,,}
+		if [[ -z $COMPILER ]]; then
+			usage
+			break
+		fi
+		;&
+	"--compiler32="*)
+		COMPILER32=${arg#*=}
+		COMPILER32=${COMPILER32,,}
+		if [[ -z $COMPILER32 ]]; then
+			COMPILER32="clang"
+		fi
+		compiler_setup
+		;;
+	"--device="*)
+		CODE_NAME=${arg#*=}
+		case $CODE_NAME in
+		lisa)
+			DEVICENAME='Xiaomi 11 lite 5G NE'
+			CODENAME='lisa'
+			SUFFIX='qgki'
+			TARGET='Image'
 			;;
-		"--device="*)
-			CODE_NAME=${arg#*=}
-			case $CODE_NAME in
-				lisa)
-					DEVICENAME='Xiaomi 11 lite 5G NE'
-					CODENAME='lisa'
-					SUFFIX='qgki'
-					TARGET='Image'
-					;;
-				*)
-					error 'device not supported'
-					;;
-			esac
+		*)
+			error 'device not supported'
 			;;
-		"--clean")
-			BUILD='clean'
-			;;
-		"--test")
-			TEST='1'
-			CODENAME=lahaina
-			;;
-		"--dtb_zip")
-			DTB_ZIP=1
-			;&
-		"--dtbs")
-			OBJ=dtbs
-			dtb_zip
-			;;
-		"--obj="*)
-			OBJ=${arg#*=}
-			obj_builder
-			;;
-		"--regen")
-			config_regenerator
-			;;
+		esac
+		;;
+	"--clean")
+		BUILD='clean'
+		;;
+	"--test")
+		TEST='1'
+		CODENAME=lahaina
+		;;
+	"--dtb_zip")
+		DTB_ZIP=1
+		;&
+	"--dtbs")
+		OBJ=dtbs
+		dtb_zip
+		;;
+	"--obj="*)
+		OBJ=${arg#*=}
+		obj_builder
+		;;
+	"--regen")
+		config_regenerator
+		;;
 	esac
 done
 ############################################################################
