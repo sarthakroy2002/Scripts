@@ -47,9 +47,7 @@ KBUILD_BUILD_HOST=neolit
 export KBUILD_BUILD_HOST
 KBUILD_BUILD_USER="sarthakroy2002"
 export KBUILD_BUILD_USER
-if [ "${BRANCH}" = "arrow-12.1" ]; then
-	REPO_URL="https://github.com/ArrowOS-Devices/android_kernel_realme_RMX2020"
-elif [ "${BRANCH}" = "arrow-13.0" ]; then
+if [ "${BRANCH}" = "arrow-12.1" ] || [ "${BRANCH}" = "arrow-13.0" ]; then
 	REPO_URL="https://github.com/ArrowOS-Devices/android_kernel_realme_RMX2020"
 else
 	REPO_URL="https://github.com/sarthakroy2002/kernel_realme_RMX2020"
