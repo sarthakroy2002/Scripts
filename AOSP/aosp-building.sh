@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 echo 'Enter AOSP BRANCH:'
 read AOSPBRANCH
 repo init --depth-1 https://android.googlesource.com/platform/manifest -b $AOSPBRANCH
