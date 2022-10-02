@@ -7,7 +7,7 @@ git config --global user.email "sarthakroy2002@gmail.com" && git config --global
 rm -rf "${SOURCEDIR}"
 mkdir -p "${SOURCEDIR}"
 cd "${SOURCEDIR}"
-export ALLOW_MISSING_DEPENDENCIES=true
+
 repo init --depth=1 -u https://github.com/LineageOS/android.git -b lineage-19.1
 repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
 

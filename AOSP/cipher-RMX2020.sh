@@ -6,7 +6,7 @@ SOURCEDIR="${BASE_DIR}/work"
 git config --global user.email "sarthakroy2002@gmail.com" && git config --global user.name "Sarthak Roy"
 mkdir -p "${SOURCEDIR}"
 cd "${SOURCEDIR}"
-export ALLOW_MISSING_DEPENDENCIES=true
+
 
 repo init --depth=1 -u https://github.com/CipherOS/android_manifest.git -b twelve-L
 repo sync -c -j4 --force-sync --no-clone-bundle --no-tags

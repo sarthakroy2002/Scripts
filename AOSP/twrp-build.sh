@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export ALLOW_MISSING_DEPENDENCIES=true
+
 repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-12.1
 repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
 repo sync --force-sync
@@ -16,6 +16,7 @@ git fetch https://gerrit.twrp.me/android_system_vold refs/changes/40/5540/4 && g
 cd ../..
 
 . build/envsetup.sh
+export ALLOW_MISSING_DEPENDENCIES=true
 lunch twrp_RMX2020-eng
 mka clean
 lunch twrp_RMX2020-eng

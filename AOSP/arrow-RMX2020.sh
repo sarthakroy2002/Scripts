@@ -9,7 +9,7 @@ git config --global user.email "sarthakroy2002@gmail.com" && git config --global
 df -h
 mkdir -p "${SOURCEDIR}"
 cd "${SOURCEDIR}"
-export ALLOW_MISSING_DEPENDENCIES=true
+
 repo init -u https://github.com/ArrowOS/android_manifest.git -b arrow-12.1
 repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
 
