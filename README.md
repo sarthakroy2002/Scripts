@@ -16,7 +16,7 @@ A month-long celebration from October 1st - 31st sponsored by [Digital Ocean](ht
 - Clone your fork down to your local machine
 
 ```markdown
-git clone https://github.com/your-username/my_scripts.git
+git clone https://github.com/your-username/Scripts.git
 ```
 
 - Make your changes
