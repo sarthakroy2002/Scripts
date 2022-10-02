@@ -1,4 +1,6 @@
+#!/usr/bin/env bash
 # techyminati <sinha.aryan03@gmail.com>
+
 sudo apt install -y zip
 JADX_VERSION=$(curl -s "https://api.github.com/repos/skylot/jadx/releases/latest" | grep -Po '"tag_name": "v\K[0-9.]+')
 curl -Lo jadx.zip "https://github.com/skylot/jadx/releases/latest/download/jadx-${JADX_VERSION}.zip"
