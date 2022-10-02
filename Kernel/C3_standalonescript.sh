@@ -14,11 +14,10 @@ function compile() {
 
 	[ -d "out" ] && rm -rf out || mkdir -p out
 
-	make O=out ARCH=arm64 RMX2020_defconfig
-
 	PATH="${PWD}/clang/bin:${PATH}:${PWD}/los-4.9-32/bin:${PATH}:${PWD}/los-4.9-64/bin:${PATH}" \
 		make -j$(nproc --all) O=out \
-		ARCH=arm64 \
+		ARCH=${ARCH} \
+		RMX2020_defconfig \
 		CC="clang" \
 		CLANG_TRIPLE=aarch64-linux-gnu- \
 		CROSS_COMPILE="${PWD}/los-4.9-64/bin/aarch64-linux-gnu-" \

@@ -13,10 +13,10 @@ function compile() {
 
 	[ -d "out" ] && rm -rf out || mkdir -p out
 
-	make O=out ARCH=arm64 RMX2020_defconfig
-
 	PATH="${PWD}/gcc/bin:${PATH}:${PWD}/gcc64/bin:/usr/bin:$PATH" \
 		make -j$(nproc --all) O=out \
+		ARCH=arm64 \
+		RMX2020_defconfig \
 		CROSS_COMPILE_ARM32=arm-eabi- \
 		CROSS_COMPILE=aarch64-elf- \
 		LD=aarch64-elf-ld.lld \
