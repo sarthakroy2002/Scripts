@@ -10,10 +10,10 @@ git clone https://github.com/sarthakroy2002/android_recovery_realme_RMX2020 devi
 cd bootable/recovery
 git fetch https://gerrit.twrp.me/android_bootable_recovery refs/changes/05/5405/21 && git cherry-pick FETCH_HEAD
 git fetch https://gerrit.twrp.me/android_bootable_recovery refs/changes/39/5639/1 && git cherry-pick FETCH_HEAD
-cd ../..
+cd "${SOURCEDIR}"
 cd system/vold
 git fetch https://gerrit.twrp.me/android_system_vold refs/changes/40/5540/4 && git cherry-pick FETCH_HEAD
-cd ../..
+cd "${SOURCEDIR}"
 
 . build/envsetup.sh
 export ALLOW_MISSING_DEPENDENCIES=true
