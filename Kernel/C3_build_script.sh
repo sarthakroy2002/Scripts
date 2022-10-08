@@ -131,7 +131,7 @@ compile() {
 	if [ "${BRANCH}" = "R" ] || [ "${BRANCH}" = "arrow-13.0-llvm" ]; then
 		make -j"${PROCS}" O=out \
 			ARCH=$ARCH \
-			CC="clang" \
+			CC=clang \
 			CROSS_COMPILE=aarch64-linux-gnu- \
 			CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
 			LLVM=1 \
