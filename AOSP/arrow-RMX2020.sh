@@ -10,8 +10,8 @@ df -h
 mkdir -p "${SOURCEDIR}"
 cd "${SOURCEDIR}"
 
-repo init -u https://github.com/ArrowOS/android_manifest.git -b arrow-12.1
-repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
+repo init --depth=1 --no-repo-verify -u https://github.com/ArrowOS/android_manifest.git -b arrow-12.1 -g default,-mips,-darwin,-notdefault
+repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
 
 cd frameworks/base
 git fetch https://review.arrowos.net/ArrowOS/android_frameworks_base refs/changes/46/16646/1 && git cherry-pick FETCH_HEAD

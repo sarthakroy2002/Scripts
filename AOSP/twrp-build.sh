@@ -9,8 +9,8 @@ TARGET=(
 	recoveryimage
 )
 
-repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-${TW_BRANCH}
-repo sync -j$(nproc) --force-sync --no-clone-bundle --no-tags
+repo init --depth=1 --no-repo-verify -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-${TW_BRANCH} -g default,-mips,-darwin,-notdefault 
+repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
 repo sync --force-sync
 
 git clone ${DT} device/${OEM}/${DEVICE}

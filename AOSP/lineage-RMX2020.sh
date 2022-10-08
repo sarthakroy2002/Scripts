@@ -8,8 +8,8 @@ rm -rf "${SOURCEDIR}"
 mkdir -p "${SOURCEDIR}"
 cd "${SOURCEDIR}"
 
-repo init --depth=1 -u https://github.com/LineageOS/android.git -b lineage-19.1
-repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
+repo init --depth=1 --no-repo-verify -u https://github.com/LineageOS/android.git -b lineage-19.1 -g default,-mips,-darwin,-notdefault 
+repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
 
 cd frameworks/base
 git fetch https://github.com/realme-mt6785-devs/android_frameworks_base

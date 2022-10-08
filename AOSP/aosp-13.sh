@@ -9,8 +9,8 @@ df -h
 mkdir -p "${SOURCEDIR}"
 cd "${SOURCEDIR}"
 
-repo init -u https://android.googlesource.com/platform/manifest -b android-13.0.0_r6
-repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
+repo init --depth=1 --no-repo-verify -u https://android.googlesource.com/platform/manifest -b android-13.0.0_r6 -g default,-mips,-darwin,-notdefault
+repo sync -c --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune -j$(nproc --all)
 
 cd system/core
 git fetch https://review.arrowos.net/ArrowOS/android_system_core refs/changes/83/16483/1 && git cherry-pick FETCH_HEAD
@@ -33,11 +33,11 @@ rm -rf build/soong
 rm -rf build/make
 rm -rf vendor/extensions
 
-git clone https://github.com/AOSP-13-RMX2020/platform_build build/make
-git clone https://github.com/AOSP-13-RMX2020/platform_build_soong build/soong
-git clone https://github.com/AOSP-13-RMX2020/platform_bootable_recovery bootable/recovery
-git clone https://github.com/AOSP-13-RMX2020/platform_vendor_extensions vendor/extensions
-git clone https://github.com/sarthakroy2002/android_prebuilts_clang_host_linux-x86_clang-r437112 prebuilts/clang/host/linux-x86/clang-r437112
+git clone --depth=1 https://github.com/AOSP-13-RMX2020/platform_build build/make
+git clone --depth=1 https://github.com/AOSP-13-RMX2020/platform_build_soong build/soong
+git clone --depth=1 https://github.com/AOSP-13-RMX2020/platform_bootable_recovery bootable/recovery
+git clone --depth=1 https://github.com/AOSP-13-RMX2020/platform_vendor_extensions vendor/extensions
+git clone --depth=1 https://github.com/sarthakroy2002/android_prebuilts_clang_host_linux-x86_clang-r437112 prebuilts/clang/host/linux-x86/clang-r437112
 
 git clone --depth=1 https://github.com/sarthakroy2002/vendor_realme_RMX2020.git -b arrow-13.0-rmui1 vendor/realme/RMX2020
 git clone --depth=1 https://github.com/sarthakroy2002/device_realme_RMX2020.git -b AOSP.MASTER device/realme/RMX2020

@@ -7,8 +7,8 @@ git config --global user.email "sarthakroy2002@gmail.com" && git config --global
 mkdir -p "${SOURCEDIR}"
 cd "${SOURCEDIR}"
 
-repo init --depth=1 -u https://github.com/CipherOS/android_manifest.git -b twelve-L
-repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
+repo init --depth=1 --no-repo-verify -u https://github.com/CipherOS/android_manifest.git -b twelve -g default,-mips,-darwin,-notdefault
+repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune -j$(nproc --all)
 
 cd frameworks/base
 wget https://raw.githubusercontent.com/sarthakroy2002/random-stuff/main/Patches/Fix-brightness-slider-curve-for-some-devices-a12l.patch
