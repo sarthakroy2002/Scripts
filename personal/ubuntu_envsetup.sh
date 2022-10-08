@@ -27,3 +27,6 @@ mkdir -p ~/.git-templates/hooks
 curl -Lo .git/hooks/commit-msg https://raw.githubusercontent.com/sarthakroy2002/my_scripts/main/commit-msg
 chmod 755 ~/.git-templates/hooks/commit-msg
 echo 'Change-id hooks are been setup successfully'
+
+# Setting up Ssh Key.
+bash sshid_setup.sh
