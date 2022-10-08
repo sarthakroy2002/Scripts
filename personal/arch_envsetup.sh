@@ -42,3 +42,6 @@ done
 # Installation Done.
 printf "Build Envirnoment is Successful"
 
+# Setting up Ssh Key.
+bash sshid_setup.sh
+
