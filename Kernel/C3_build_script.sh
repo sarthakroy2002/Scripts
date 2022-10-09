@@ -6,8 +6,12 @@ deps() {
 
 	if [ ! -d "clang" ]; then
 		if [ "${BRANCH}" = "R" ] || [ "${BRANCH}" = "arrow-13.0-llvm" ]; then
-			git clone --depth=1 https://gitlab.com/sarthakroy2002/clang-r450784d clang
-			KBUILD_COMPILER_STRING="Clang 14 android-13.0 r450784d"
+			mkdir clang && cd clang
+			bash <(curl -s https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman) -S=latest
+			sudo apt install libelf-dev libarchive-tools
+			bash -c "$(wget -O - https://gist.githubusercontent.com/dakkshesh07/240736992abf0ea6f0ee1d8acb57a400/raw/e97b505653b123b586fc09fda90c4076c8030732/patch-for-old-glibc.sh)"
+			cd ..
+			KBUILD_COMPILER_STRING="Neutron Clang"
 		else
 			git clone --depth=1 https://github.com/sarthakroy2002/android_prebuilts_clang_host_linux-x86_clang-r437112 clang
 			KBUILD_COMPILER_STRING="Clang 14 r437112"
