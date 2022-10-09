@@ -10,6 +10,7 @@ deps() {
 			bash <(curl -s https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman) -S=latest
 			sudo apt install libelf-dev libarchive-tools
 			bash -c "$(wget -O - https://gist.githubusercontent.com/dakkshesh07/240736992abf0ea6f0ee1d8acb57a400/raw/e97b505653b123b586fc09fda90c4076c8030732/patch-for-old-glibc.sh)"
+			ls
 			cd ..
 			KBUILD_COMPILER_STRING="Neutron Clang"
 		else
