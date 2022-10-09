@@ -129,8 +129,7 @@ compile() {
 			ARCH=$ARCH \
 			CC=clang \
 			CROSS_COMPILE=aarch64-linux-gnu- \
-			CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
-                        HOSTAS=llvm-as \		
+			CROSS_COMPILE_ARM32=arm-linux-gnueabi- \		
                         LLVM=1 \
 			LLVM_IAS=1 \
 			LD=ld.lld \
@@ -139,6 +138,7 @@ compile() {
 			OBJCOPY=llvm-objcopy \
 			OBJDUMP=llvm-objdump \
 			STRIP=llvm-strip \
+			HOSTAS=llvm-as \
 			CONFIG_NO_ERROR_ON_MISMATCH=y
 	else
 		make -j"${PROCS}" O=out \
