@@ -138,7 +138,6 @@ compile() {
 			OBJCOPY=llvm-objcopy \
 			OBJDUMP=llvm-objdump \
 			STRIP=llvm-strip \
-			HOSTAS=llvm-as \
 			CONFIG_NO_ERROR_ON_MISMATCH=y
 	else
 		make -j"${PROCS}" O=out \
