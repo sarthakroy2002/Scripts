@@ -47,7 +47,7 @@ sleep 1
 printf ''
 ssh -T git@github.com
 
-# Setting up the git config Done.
+# Setting up the ssh id Done.
 printf "Setting up the git config is Successful." 
 echo ' '
 printf 'Enjoy Baking....'

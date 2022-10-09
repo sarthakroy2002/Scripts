@@ -19,3 +19,18 @@ then
 else 
     bash ubuntu_envsetup.sh
 fi
+
+# Setting up the git config.
+printf 'Setting Up  Git config.'
+echo ''
+printf 'Enter your github username.'
+# asks for user input. so by using the function 'read' here . There is no need to add any credentials.
+read username
+sleep 1
+git config --global user.name "$username"
+echo 'Enter your registered github mail id.'
+read mail
+sleep 1
+git config --global user.email "$mail"
+
+#End of scripts.
