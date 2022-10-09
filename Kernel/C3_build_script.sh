@@ -6,15 +6,11 @@ deps() {
 
 	if [ ! -d "clang" ]; then
 		if [ "${BRANCH}" = "R" ] || [ "${BRANCH}" = "arrow-13.0-llvm" ]; then
-			mkdir clang && cd clang
-			bash <(curl -s https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman) -S=latest
-			sudo apt install libelf-dev libarchive-tools
-			bash -c "$(wget -O - https://gist.githubusercontent.com/dakkshesh07/240736992abf0ea6f0ee1d8acb57a400/raw/e97b505653b123b586fc09fda90c4076c8030732/patch-for-old-glibc.sh)"
-			cd ..
-			KBUILD_COMPILER_STRING="Neutron Clang"
+			git clone --depth=1 https://gitlab.com/sarthakroy2002/clang-r450784d clang
+			KBUILD_COMPILER_STRING="Clang 14 android-13.0 r450784d"
 		else
 			git clone --depth=1 https://github.com/sarthakroy2002/android_prebuilts_clang_host_linux-x86_clang-r437112 clang
-			KBUILD_COMPILER_STRING="Clang 14.0.0"
+			KBUILD_COMPILER_STRING="Clang 14 r437112"
 
 			if [ ! -d "los-4.9-64" ]; then
 				git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 los-4.9-64
@@ -47,13 +43,13 @@ KBUILD_BUILD_HOST=neolit
 export KBUILD_BUILD_HOST
 KBUILD_BUILD_USER="sarthakroy2002"
 export KBUILD_BUILD_USER
-if [ "${BRANCH}" = "arrow-12.1" ] || [ "${BRANCH}" = "arrow-13.0" ]; then
+if [ "${BRANCH}" = "arrow-12.1" ] || [ "${BRANCH}" = "arrow-13.0" ] || [ "${BRANCH}" = "arrow-13.0-llvm" ]; then
 	REPO_URL="https://github.com/ArrowOS-Devices/android_kernel_realme_RMX2020"
 else
 	REPO_URL="https://github.com/sarthakroy2002/kernel_realme_RMX2020"
 fi
 export REPO_URL
-DEVICE="Realme C3/Narzo 10A"
+DEVICE="Realme C3/Narzo 10A (Realme Monet)"
 export DEVICE
 CODENAME="RMX2020"
 export CODENAME
@@ -87,7 +83,7 @@ tgs() {
 
 # sticker plox
 sticker() {
-	curl -s -X POST "https://api.telegram.org/bot$token/sendSticker" \
+	curl -s -X POST https://api.telegram.org/bot"${token}"/sendSticker \
 		-d sticker="CAACAgQAAxkBAAED3JFiApkFOuZg8zt0-WNrfEGwrvoRuAACAQoAAoEcoFINevKyLXEDhSME" \
 		-d chat_id="${chat_id}"
 }
