@@ -13,6 +13,7 @@ deps() {
 			ls
 			cd ..
 			KBUILD_COMPILER_STRING="Neutron Clang"
+			PATH="${PWD}/clang/bin:${PATH}"
 		else
 			git clone --depth=1 https://github.com/sarthakroy2002/android_prebuilts_clang_host_linux-x86_clang-r437112 clang
 			KBUILD_COMPILER_STRING="Clang 14 r437112"
@@ -24,6 +25,7 @@ deps() {
 			if [ ! -d "los-4.9-32" ]; then
 				git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9 los-4.9-32
 			fi
+			PATH="${PWD}/clang/bin:${PATH}:${PWD}/los-4.9-32/bin:${PATH}:${PWD}/los-4.9-64/bin:${PATH}"
 		fi
 	fi
 	sudo apt install -y ccache
@@ -36,11 +38,6 @@ START=$(date +"%s")
 KERNEL_DIR=$(pwd)
 CACHE=1
 export CACHE
-if [ "${BRANCH}" = "R" ]; then
-	PATH="${PWD}/clang/bin:${PATH}"
-else
-	PATH="${PWD}/clang/bin:${PATH}:${PWD}/los-4.9-32/bin:${PATH}:${PWD}/los-4.9-64/bin:${PATH}"
-fi
 export KBUILD_COMPILER_STRING
 ARCH=arm64
 export ARCH
@@ -48,12 +45,6 @@ KBUILD_BUILD_HOST=neolit
 export KBUILD_BUILD_HOST
 KBUILD_BUILD_USER="sarthakroy2002"
 export KBUILD_BUILD_USER
-if [ "${BRANCH}" = "arrow-12.1" ] || [ "${BRANCH}" = "arrow-13.0" ] || [ "${BRANCH}" = "arrow-13.0-llvm" ]; then
-	REPO_URL="https://github.com/ArrowOS-Devices/android_kernel_realme_RMX2020"
-else
-	REPO_URL="https://github.com/sarthakroy2002/kernel_realme_RMX2020"
-fi
-export REPO_URL
 DEVICE="Realme C3/Narzo 10A (Realme Monet)"
 export DEVICE
 CODENAME="RMX2020"
@@ -100,7 +91,7 @@ sendinfo() {
 *Date*: \`${DATE}\`
 *Device*: \`${DEVICE} (${CODENAME})\`
 *Branch*: \`$(git rev-parse --abbrev-ref HEAD)\`
-*Last Commit*: [${COMMIT_HASH}](${REPO_URL}/commit/${COMMIT_HASH})
+*Last Commit*: [${COMMIT_HASH}](${REPO}/commit/${COMMIT_HASH})
 *Compiler*: \`${KBUILD_COMPILER_STRING}\`
 *Build Status*: \`${STATUS}\`"
 }
