@@ -19,7 +19,7 @@ A month-long celebration from October 1st - 31st sponsored by [Digital Ocean](ht
 git clone https://github.com/your-username/Scripts.git
 ```
 
-- Make your changes
+- Make your changes (in specific directories only)
 - Commit and push
 
 ```markdown
