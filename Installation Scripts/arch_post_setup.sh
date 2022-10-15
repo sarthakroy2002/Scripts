@@ -8,11 +8,11 @@ hostname=arch
 
 # regular user name
 
-username=Sarthak
+username=sarthakroy2002
 
 # password for regular user. Password for root will not be set
 
-password=6969
+password=user
 
 # Timezone
 

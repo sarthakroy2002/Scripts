@@ -21,7 +21,7 @@ function exports() {
 export ARCH=arm64
 export SUBARCH=arm64
 export LOCALVERSION="-${VERSION}"
-export KBUILD_BUILD_USER="SarthakRoy"
+export KBUILD_BUILD_USER="sarthakroy2002"
 export KBUILD_BUILD_VERSION="1"
 export PROCS=$(nproc --all)
 export DISTRO=$(source /etc/os-release && echo "${NAME}")
