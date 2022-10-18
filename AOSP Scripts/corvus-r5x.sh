@@ -21,9 +21,9 @@ patch -p1 <*.patch
 cd "${SOURCEDIR}"
 
 # Sync Trees
-git clone https://github.com/CorvusRom-Devices/device_realme_r5x -b 13-wip device/realme/r5x
-git clone https://github.com/CorvusRom-Devices/vendor_realme_r5x vendor/realme/r5x
-git clone https://github.com/mizdrake7/Graveyard_r5x vendor/realme/r5x
+git clone --depth=1 https://github.com/CorvusRom-Devices/device_realme_r5x -b 13-wip device/realme/r5x
+git clone --depth=1 https://github.com/CorvusRom-Devices/vendor_realme_r5x vendor/realme/r5x
+git clone --depth=1 https://github.com/mizdrake7/Graveyard_r5x kernel/realme/r5x
 
 # Start Build
 source build/envsetup.sh
