@@ -11,8 +11,8 @@ mkdir -p "${SOURCEDIR}"
 cd "${SOURCEDIR}"
 
 # Sync Source
-repo init -u https://github.com/Corvus-AOSP/android_manifest.git -b 13
-repo sync -j$(nproc --all) --force-sync --no-tags --no-clone-bundle
+repo init --depth=1 -u https://github.com/Corvus-AOSP/android_manifest.git -b 13
+repo sync  --force-sync --current-branch --no-tags --no-clone-bundle --optimized-fetch --prune -j$(nproc --all)
 
 # Sync Trees
 git clone https://github.com/CorvusRom-Devices/device_realme_r5x -b 13-wip device/realme/r5x
