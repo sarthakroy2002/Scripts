@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
+
 BASE_DIR="$(pwd)"
-SOURCEDIR="${BASE_DIR}/work"
+SOURCEDIR="${BASE_DIR}/android"
 
 # Set-up Git username & emailID
 read -p 'Enter your Git username: ' username
@@ -14,13 +15,25 @@ mkdir -p "${SOURCEDIR}"
 cd "${SOURCEDIR}"
 
 #Initializing pixelexperience repo. in source dir.
-echo "Initializing Pixelexperience repo. for android 13.0"
+echo "-----------------------------------------------------"
+echo " Initializing Pixelexperience repo. for android 13.0 "
+echo "-----------------------------------------------------"
 echo
-read -p "Do you need shallow clone (i.e --depth=1), if yes input (Y/N)?" input
-if [[$input = Y || $input = y]]; then
-repo init -u https://github.com/PixelExperience/manifest -b thirteen --depth=1
-fi
-repo init -u https://github.com/PixelExperience/manifest -b thirteen
+while true; do
+read -p "Do you want to save some space? (Y/n) " Ny
+case $Ny in
+           [Yy] ) echo "Doing Shallow Clone"
+                  echo "-------------------"
+                  repo init -u https://github.com/PixelExperience/manifest -b thirteen --depth=1
+           break;;
+           [Nn] ) echo "Doing Deep Clone"
+                  echo "----------------"
+                  repo init -u https://github.com/PixelExperience/manifest -b thirteen
+           break;;
+              * ) echo "Invalid Response"
+esac
+
+done
 echo
 #Syncing repo.
 echo "Syncing repo. from the source"
