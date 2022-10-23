@@ -39,6 +39,11 @@ echo
 echo "Syncing repo. from the source"
 repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
 echo
+#Enhancing the aosp source
+echo "Fixing minimal issues"
+rm -rf frameworks && git clone -b twelve https://github.com/userariii/frameworks_base.git frameworks
+rm -rf build && git clone -b thirteen https://github.com/PixelExperience/build.git build
+cd build/tools/releasetools && git revert 75a7987ef696772270ad71a52888802c69ed61ee && cd ../../../
 #Device Sources
 echo "Downloading Device Tree"
 git clone -b 12.1 https://github.com/userariii/android_device_xiaomi_miatoll.git device/xiaomi/miatoll
