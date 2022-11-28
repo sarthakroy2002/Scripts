@@ -148,8 +148,12 @@ compile() {
 		finderr
 		exit 1
 	fi
-
-	git clone --depth=1 https://github.com/sarthakroy2002/AnyKernel3.git AnyKernel
+	
+	if [ "${BRANCH}" = "arrow-12.1" ] || [ "${BRANCH}" = "arrow-12.0" ]; then
+		git clone --depth=1 https://github.com/sarthakroy2002/AnyKernel3.git -b RMX2020-12 AnyKernel
+	else
+		git clone --depth=1 https://github.com/sarthakroy2002/AnyKernel3.git AnyKernel
+	fi
 	cp out/arch/arm64/boot/Image.gz-dtb AnyKernel
 }
 # Zipping
