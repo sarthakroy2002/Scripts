@@ -47,7 +47,7 @@ git clone --depth=1 https://github.com/sarthakroy2002/vendor_realme_RMX2020.git 
 git clone --depth=1 https://github.com/sarthakroy2002/device_realme_RMX2020.git device/realme/RMX2020
 git clone --depth=1 https://github.com/ArrowOS-Devices/android_kernel_realme_RMX2020 kernel/realme/RMX2020
 git clone --depth=1 https://github.com/sarthakroy2002/vendor_realme_RMX2020-ims vendor/realme/RMX2020-ims
-git clone --depth=1 https://github.com/sarthakroy2002/android_device_mediatek_sepolicy_vndr -b arrow-13.0-RMX2020 device/mediatek/sepolicy_vndr
+git clone --depth=1 https://github.com/ArrowOS/android_device_mediatek_sepolicy_vndr -b arrow-13.0 device/mediatek/sepolicy_vndr
 git clone https://github.com/sarthakroy2002/android_prebuilts_clang_host_linux-x86_clang-r437112 prebuilts/clang/host/linux-x86/clang-r437112
 
 cd device/realme/RMX2020
