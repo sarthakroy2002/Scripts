@@ -160,8 +160,6 @@ compile() {
 zipping() {
 	cd AnyKernel || exit 1
 	zip -r9 NEOLIT-Test-OSS-"${BRANCH}"-KERNEL-"${CODENAME}"-"${DATE}".zip ./*
-	curl -sL https://git.io/file-transfer | sh
-	./transfer wet NEOLIT-Test-OSS-"${BRANCH}"-KERNEL-"${CODENAME}"-"${DATE}".zip
 	cd ..
 }
 
