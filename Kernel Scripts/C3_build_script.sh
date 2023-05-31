@@ -41,7 +41,7 @@ export CACHE
 export KBUILD_COMPILER_STRING
 ARCH=arm64
 export ARCH
-KBUILD_BUILD_HOST=neolit
+KBUILD_BUILD_HOST="neOliT"
 export KBUILD_BUILD_HOST
 KBUILD_BUILD_USER="sarthakroy2002"
 export KBUILD_BUILD_USER
@@ -86,7 +86,7 @@ sticker() {
 # Send info plox channel
 sendinfo() {
 	tg "
-• NEOLIT CI Build •
+• neOliT CI Build •
 *Building on*: \`Github actions\`
 *Date*: \`${DATE}\`
 *Device*: \`${DEVICE} (${CODENAME})\`
@@ -159,7 +159,7 @@ compile() {
 # Zipping
 zipping() {
 	cd AnyKernel || exit 1
-	zip -r9 NEOLIT-Test-OSS-"${BRANCH}"-KERNEL-"${CODENAME}"-"${DATE}".zip ./*
+	zip -r9 neOliT-Test-OSS-"${BRANCH}"-KERNEL-"${CODENAME}"-"${DATE}".zip ./*
 	cd ..
 }
 
