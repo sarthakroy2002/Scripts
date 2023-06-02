@@ -7,9 +7,8 @@ deps() {
 	if [ ! -d "clang" ]; then
 			mkdir clang && cd clang
             sudo apt install libelf-dev libarchive-tools
-			curl -LO "https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman"
-            ./antman -S
-            ./antman --patch=glibc
+            bash <(curl -s https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman) -S
+            bash <(curl -s https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman) --patch=glibc
 			ls
 			cd ..
 			KBUILD_COMPILER_STRING="Neutron Clang"
