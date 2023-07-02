@@ -24,7 +24,7 @@ mkdir ~/bin && PATH=~/bin:$PATH && curl https://storage.googleapis.com/git-repo-
 # Setup Change-id hooks
 git config --global init.templatedir '~/.git-templates'
 mkdir -p ~/.git-templates/hooks
-curl -Lo .git/hooks/commit-msg https://raw.githubusercontent.com/sarthakroy2002/my_scripts/main/commit-msg
+curl -Lo .git/hooks/commit-msg https://raw.githubusercontent.com/sarthakroy2002/Scripts/main/commit-msg
 chmod 755 ~/.git-templates/hooks/commit-msg
 echo 'Change-id hooks are been setup successfully'
 
