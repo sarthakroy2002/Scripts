@@ -5,7 +5,7 @@ deps() {
 	echo "Cloning dependencies"
 
 	if [ ! -d "clang" ]; then
-		if [ "${BRANCH}" = "R" ] || [ "${BRANCH}" = "arrow-13.0-llvm" ]; then
+		if [ "${BRANCH}" = "R" ]; then
 			mkdir clang && cd clang
 			bash <(curl -s https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman) -S=latest
 			sudo apt install libelf-dev libarchive-tools
@@ -15,8 +15,8 @@ deps() {
 			KBUILD_COMPILER_STRING="Neutron Clang"
 			PATH="${PWD}/clang/bin:${PATH}"
 		else
-			git clone --depth=1 https://github.com/sarthakroy2002/android_prebuilts_clang_host_linux-x86_clang-r437112 clang
-			KBUILD_COMPILER_STRING="Clang 14 r437112"
+			git clone --depth=1 https://gitlab.com/arrowos-project/android_prebuilts_clang_host_linux-x86_clang-r437112b clang
+			KBUILD_COMPILER_STRING="Clang 14.0.1 r437112b"
 
 			if [ ! -d "los-4.9-64" ]; then
 				git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 los-4.9-64
@@ -120,7 +120,7 @@ compile() {
 
 	make O=out ARCH="${ARCH}" "${DEFCONFIG}"
 
-	if [ "${BRANCH}" = "R" ] || [ "${BRANCH}" = "arrow-13.0-llvm" ]; then
+	if [ "${BRANCH}" = "R" ]; then
 		make -j"${PROCS}" O=out \
 			ARCH=$ARCH \
 			CC="clang" \
