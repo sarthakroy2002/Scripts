@@ -6,13 +6,9 @@ deps() {
 
 	if [ ! -d "clang" ]; then
 		if [ "${BRANCH}" = "R" ]; then
-			mkdir clang && cd clang
-			bash <(curl -s https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman) -S=latest
-			sudo apt install libelf-dev libarchive-tools
-			bash <(curl -s https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman) --patch=glibc
-			ls
-			cd ..
-			KBUILD_COMPILER_STRING="Neutron Clang"
+			wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/tags/android-13.0.0_r63/clang-r450784d.tar.gz -O "aosp-clang.tar.gz"
+			mkdir clang && tar -xf aosp-clang.tar.gz -C clang && rm -rf aosp-clang.tar.gz
+			KBUILD_COMPILER_STRING="Clang 14 r450784d"
 			PATH="${PWD}/clang/bin:${PATH}"
 		else
 			git clone --depth=1 https://gitlab.com/arrowos-project/android_prebuilts_clang_host_linux-x86_clang-r437112b clang
@@ -124,15 +120,8 @@ compile() {
 		make -j"${PROCS}" O=out \
 			ARCH=$ARCH \
 			CC="clang" \
-			CROSS_COMPILE=aarch64-linux-gnu- \
-			CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
                         LLVM=1 \
-			LD=ld.lld \
-			AR=llvm-ar \
-			NM=llvm-nm \
-			OBJCOPY=llvm-objcopy \
-			OBJDUMP=llvm-objdump \
-			STRIP=llvm-strip \
+			LLVM_IAS=1 \
 			CONFIG_NO_ERROR_ON_MISMATCH=y
 	else
 		make -j"${PROCS}" O=out \
