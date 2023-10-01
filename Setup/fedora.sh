@@ -107,23 +107,23 @@ echo -e "Done."
 echo -e "\nInstalling apktool and JADX..."
 mkdir -p bin
 wget -q https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.6.0.jar -O bin/apktool.jar
-echo 'alias apktool="java -jar $HOME/bin/apktool.jar"' >> .bashrc
+echo 'alias apktool="java -jar $HOME/bin/apktool.jar"' >>.bashrc
 
 wget -q https://github.com/skylot/jadx/releases/download/v1.4.4/jadx-1.4.4.zip
 unzip -qq jadx-1.4.4.zip -d jadx
 rm jadx-1.4.4.zip
-echo 'export PATH="$HOME/jadx/bin:$PATH"' >> .bashrc
+echo 'export PATH="$HOME/jadx/bin:$PATH"' >>.bashrc
 echo -e "Done."
 
 echo -e "\nSetting up shell environment..."
-if [[ $SHELL = *zsh* ]]; then
-sh_rc=".zshrc"
+if [[ $SHELL == *zsh* ]]; then
+    sh_rc=".zshrc"
 else
-sh_rc=".bashrc"
+    sh_rc=".bashrc"
 fi
 
 # Add android sdk to path
-cat <<'EOF' >> .profile
+cat <<'EOF' >>.profile
 # Add Android SDK platform tools to path
 if [ -d "$HOME/platform-tools" ] ; then
     PATH="$HOME/platform-tools:$PATH"
@@ -137,7 +137,7 @@ sed -i 's/HISTFILESIZE=.*/HISTFILESIZE=-1/g' $sh_rc
 echo -e "Done."
 
 # Increase tmux scrollback buffer size
-echo "set-option -g history-limit 6000" >> .tmux.conf
+echo "set-option -g history-limit 6000" >>.tmux.conf
 
 # Increase maximum ccache size
 ccache -M 100G

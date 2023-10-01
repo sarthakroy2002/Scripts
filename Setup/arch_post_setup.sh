@@ -44,7 +44,7 @@ is_intel_cpu=$(lscpu | grep 'Intel' &>/dev/null && echo 'yes' || echo '')
 
 if [[ -n $is_intel_cpu ]]; then
 
-	pacman -S --noconfirm intel-ucode --overwrite=/boot/intel-ucode.img
+    pacman -S --noconfirm intel-ucode --overwrite=/boot/intel-ucode.img
 
 fi
 
@@ -54,9 +54,9 @@ fi
 
 if [[ -d "/sys/firmware/efi/efivars" ]]; then
 
-	bootctl install
+    bootctl install
 
-	cat <<EOF >/boot/loader/entries/arch.conf
+    cat <<EOF >/boot/loader/entries/arch.conf
 
     title      Arch Linux
 
@@ -70,7 +70,7 @@ if [[ -d "/sys/firmware/efi/efivars" ]]; then
 
 EOF
 
-	cat <<EOF >/boot/loader/loader.conf
+    cat <<EOF >/boot/loader/loader.conf
 
     default arch
 
@@ -80,35 +80,35 @@ EOF
 
 EOF
 
-	if [[ -z $is_intel_cpu ]]; then
+    if [[ -z $is_intel_cpu ]]; then
 
-		sed -i '/intel-ucode/d' /boot/loader/entries/arch.conf
+        sed -i '/intel-ucode/d' /boot/loader/entries/arch.conf
 
-	fi
+    fi
 
-	# remove leading spaces
+    # remove leading spaces
 
-	sed -i 's#^ \+##g' /boot/loader/entries/arch.conf
+    sed -i 's#^ \+##g' /boot/loader/entries/arch.conf
 
-	sed -i 's#^ \+##g' /boot/loader/loader.conf
+    sed -i 's#^ \+##g' /boot/loader/loader.conf
 
-	# modify root partion in loader conf
+    # modify root partion in loader conf
 
-	root_partition=$(mount | grep 'on / ' | cut -d' ' -f1)
+    root_partition=$(mount | grep 'on / ' | cut -d' ' -f1)
 
-	root_partition=$(df / | tail -1 | cut -d' ' -f1)
+    root_partition=$(df / | tail -1 | cut -d' ' -f1)
 
-	sed -i "s#/dev/sda2#$root_partition#" /boot/loader/entries/arch.conf
+    sed -i "s#/dev/sda2#$root_partition#" /boot/loader/entries/arch.conf
 
 else
 
-	disk=$(df / | tail -1 | cut -d' ' -f1 | sed 's#[0-9]\+##g')
+    disk=$(df / | tail -1 | cut -d' ' -f1 | sed 's#[0-9]\+##g')
 
-	pacman --noconfirm -S grub os-prober
+    pacman --noconfirm -S grub os-prober
 
-	grub-install --target=i386-pc "$disk"
+    grub-install --target=i386-pc "$disk"
 
-	grub-mkconfig -o /boot/grub/grub.cfg
+    grub-mkconfig -o /boot/grub/grub.cfg
 
 fi
 
@@ -140,29 +140,29 @@ intel=$(lspci | grep -e VGA -e 3D | grep 'Intel' 2>/dev/null || echo '')
 
 if [[ -n $nvidia ]]; then
 
-	pacman -S --noconfirm nvidia
+    pacman -S --noconfirm nvidia
 
 fi
 
 if [[ -n $amd ]]; then
 
-	pacman -S --noconfirm xf86-video-amdgpu
+    pacman -S --noconfirm xf86-video-amdgpu
 
 fi
 
 if [[ -n $intel ]]; then
 
-	pacman -S --noconfirm xf86-video-intel
+    pacman -S --noconfirm xf86-video-intel
 
 fi
 
 if [[ -n $nvidia && -n $intel ]]; then
 
-	pacman -S --noconfirm bumblebee
+    pacman -S --noconfirm bumblebee
 
-	gpasswd -a $username bumblebee
+    gpasswd -a $username bumblebee
 
-	systemctl enable bumblebeed
+    systemctl enable bumblebeed
 
 fi
 

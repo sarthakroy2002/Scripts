@@ -15,7 +15,7 @@ git clone --depth=1 https://github.com/ArrowOS-Devices/android_vendor_xiaomi_moj
 git clone --depth=1 https://github.com/ArrowOS-Devices/android_kernel_xiaomi_mojito.git kernel/xiaomi/mojito
 git clone --depth=1 https://github.com/StatiXOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-elf.git prebuilts/gcc/linux-x86/aarch64/aarch64-elf
 git clone --depth=1 https://github.com/StatiXOS/android_prebuilts_gcc_linux-x86_arm_arm-eabi.git prebuilts/gcc/linux-x86/arm/arm-eabi
-git clone --depth=1 https://github.com/sarthakroy2002/android_hardware_xiaomi.git hardware/xiaomi 
+git clone --depth=1 https://github.com/sarthakroy2002/android_hardware_xiaomi.git hardware/xiaomi
 
 source build/envsetup.sh
 lunch arrow_mojito-userdebug

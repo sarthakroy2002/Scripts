@@ -1,4 +1,3 @@
-
 ### Currently Only for Distro's for which Pacman is the Package Manager thourgh this script.
 
 # using setup script to install prerequisite packages using different package mangers .
@@ -17,21 +16,20 @@ ssh-add ~/.ssh/id_ed25519
 printf 'Added SSH key Successfully.'
 
 # installing Pre-requisite packages.
-if [ "package" == "arch" || "package" == "yum" ]
-then
+if [ "package" == "arch" || "package" == "yum" ]; then
     sudo pacman -S xclip konsole --noconfirm
-else 
+else
     sudo apt install xclip konsole -y
 fi
 # Using Xclip to copy the content inside the path.
-xclip -sel clip <  ~/.ssh/id_ed25519.pub
+xclip -sel clip <~/.ssh/id_ed25519.pub
 printf 'SSH Key has been copied.'
 echo ' '
 sleep 1
 printf 'to add it your github account. '
 echo ''
 printf 'Opening github.com'.
-konsole --new-tab  -e python -m webbrowser https://github.com/settings/ssh/new
+konsole --new-tab -e python -m webbrowser https://github.com/settings/ssh/new
 sleep 1
 echo ' '
 printf 'enter creditals to login to your account if asked.'
@@ -48,13 +46,12 @@ printf ''
 ssh -T git@github.com
 
 # Setting up the ssh id Done.
-printf "Setting up the git config is Successful." 
+printf "Setting up the git config is Successful."
 echo ' '
 printf 'Enjoy Baking....'
 
 # Removing Konsole from Debian based distro.
-if [ "package" == "apt" ]
-then
+if [ "package" == "apt" ]; then
     sudo apt remove konsole -y
 fi
 

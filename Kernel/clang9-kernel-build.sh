@@ -26,21 +26,20 @@ make O=out ARCH=arm64 ${CONFIG}
 # Compile plox
 compile() {
     make -j$(nproc) O=out \
-                    ARCH=arm64 \
-                    CC=clang \
-                    CLANG_TRIPLE=aarch64-linux-gnu- \
-                    CROSS_COMPILE=aarch64-linux-android- \
-                    CROSS_COMPILE_ARM32=arm-linux-androideabi- $1 $2 $3
+        ARCH=arm64 \
+        CC=clang \
+        CLANG_TRIPLE=aarch64-linux-gnu- \
+        CROSS_COMPILE=aarch64-linux-android- \
+        CROSS_COMPILE_ARM32=arm-linux-androideabi- $1 $2 $3
 }
 
-function zupload()
-{
-git clone --depth=1 https://github.com/SakthivelNadar/AnyKernel3-2.git AnyKernel
-cp out/arch/arm64/boot/Image.gz-dtb AnyKernel
-cd AnyKernel
-zip -r9 StormBreaker-r1.0-yogurt.zip *
-curl -sL https://git.io/file-transfer | sh
-./transfer wet StormBreaker-r1.0-yogurt.zip
+function zupload() {
+    git clone --depth=1 https://github.com/SakthivelNadar/AnyKernel3-2.git AnyKernel
+    cp out/arch/arm64/boot/Image.gz-dtb AnyKernel
+    cd AnyKernel
+    zip -r9 StormBreaker-r1.0-yogurt.zip *
+    curl -sL https://git.io/file-transfer | sh
+    ./transfer wet StormBreaker-r1.0-yogurt.zip
 }
 
 compile
