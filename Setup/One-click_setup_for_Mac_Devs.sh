@@ -1,5 +1,3 @@
-
-
 # install homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
@@ -61,7 +59,6 @@ brew cleanup
 # configure Atom
 # apm install pp-markdown markdown-to-pdf pretty-json
 # apm install atom-ide-ui ide-python
-
 
 # finally
 echo "Please reboot now!"

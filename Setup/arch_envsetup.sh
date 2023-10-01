@@ -14,7 +14,7 @@ printf "Updating..................."
 sudo pacman -Syyu --noconfirm
 
 # Installing the Packages req' for Build Environment.
-printf "Installing Android building prerequisites packages. " 
+printf "Installing Android building prerequisites packages. "
 sudo pacman -Syyu --noconfirm \
     multilib-devel git wget multilib-devel cmake \
     svn clang lzip patchelf inetutils python2 python3 python-pip \
@@ -44,4 +44,3 @@ printf "Build Envirnoment is Successful"
 
 # Setting up Ssh Key.
 bash sshid_setup.sh
-

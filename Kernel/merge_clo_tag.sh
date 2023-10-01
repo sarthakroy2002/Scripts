@@ -12,7 +12,7 @@ if [ -z ${TAG+x} ]; then
     echo "Pass a valid argument"
 fi
 
-if [[ $2 = "-i" || $2 = "--initial" ]]; then
+if [[ $2 == "-i" || $2 == "--initial" ]]; then
     INITIAL_MERGE=true
     echo "Initial merge"
 fi
@@ -27,7 +27,7 @@ function merge_qcacld() {
 
     git fetch qcacld-3.0 $TAG
 
-    if [[ ${INITIAL_MERGE} = true ]]; then
+    if [[ ${INITIAL_MERGE} == true ]]; then
         git merge -s ours --no-commit --allow-unrelated-histories FETCH_HEAD
         git read-tree --prefix=drivers/staging/qcacld-3.0 -u FETCH_HEAD
         git commit -m "qcacld-3.0: Merge tag '$TAG'"
@@ -51,11 +51,11 @@ function merge_fw_api() {
 
     git fetch fw-api $TAG
 
-    if [[ ${INITIAL_MERGE} = true ]]; then
+    if [[ ${INITIAL_MERGE} == true ]]; then
         git merge -s ours --no-commit --allow-unrelated-histories FETCH_HEAD
         git read-tree --prefix=drivers/staging/fw-api -u FETCH_HEAD
         git commit -m "fw-api: Merge tag '$TAG'"
-    echo "Merged fw-api tag succesfully!"
+        echo "Merged fw-api tag succesfully!"
     else
         if ! git merge -X subtree=drivers/staging/fw-api FETCH_HEAD --log; then
             echo "Merge failed!" && exit 1
@@ -75,11 +75,11 @@ function merge_qca_wifi_host_cmn() {
 
     git fetch qca-wifi-host-cmn $TAG
 
-    if [[ ${INITIAL_MERGE} = true ]]; then
+    if [[ ${INITIAL_MERGE} == true ]]; then
         git merge -s ours --no-commit --allow-unrelated-histories FETCH_HEAD
         git read-tree --prefix=drivers/staging/qca-wifi-host-cmn -u FETCH_HEAD
         git commit -m "qca-wifi-host-cmn: Merge tag '$TAG'"
-    echo "Merged qca-wifi-host-cmn tag succesfully!"
+        echo "Merged qca-wifi-host-cmn tag succesfully!"
     else
         if ! git merge -X subtree=drivers/staging/qca-wifi-host-cmn FETCH_HEAD --log; then
             echo "Merge failed!" && exit 1
@@ -99,7 +99,7 @@ function merge_techpack() {
 
     git fetch techpack $TAG
 
-    if [[ ${INITIAL_MERGE} = true ]]; then
+    if [[ ${INITIAL_MERGE} == true ]]; then
         git merge -s ours --no-commit --allow-unrelated-histories FETCH_HEAD
         git read-tree --prefix=techpack/audio -u FETCH_HEAD
         git commit -m "techpack: Merge tag '$TAG'"

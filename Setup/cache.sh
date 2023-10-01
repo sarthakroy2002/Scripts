@@ -8,4 +8,3 @@ make -j"$(nproc)"
 sudo make install
 rm -rf "${PWD}"
 cd - || exit 1
- 

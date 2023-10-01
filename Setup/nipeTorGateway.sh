@@ -4,7 +4,9 @@
 sudo apt update && sudo apt install perl tor -y
 echo .........................................................................................................
 # Download
-cd /opt || exit ; sudo git clone https://github.com/htrgouvea/nipe ; cd nipe || exit;
+cd /opt || exit
+sudo git clone https://github.com/htrgouvea/nipe
+cd nipe || exit
 echo .........................................................................................................
 
 # Install libs and dependencies
@@ -23,7 +25,7 @@ sudo chmod +x nipe.pl nipe
 echo .........................................................................................................
 
 # create symbolic link
-echo "alias nipe=\"/opt/nipe/nipe\"" >> ~/.*shrc
+echo 'alias nipe="/opt/nipe/nipe"' >>~/.*shrc
 echo .........................................................................................................
 
 # Show help
