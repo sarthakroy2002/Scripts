@@ -1,8 +1,6 @@
-<img src="https://hacktoberfest.com/_next/static/media/opengraph.da6e44c0.png">
+# 🎃 HacktoberFest 2023 Starter Project- Various Useful Scripts 🎃
 
-# 🎃 HacktoberFest 2022 Starter Project- Various Useful Scripts 🎃
-
-This is a beginner friendly repository made specifically for Hacktoberfest.
+This is a beginner-friendly repository made specifically for Hacktoberfest.
 
 ## What is Hacktoberfest?
 
