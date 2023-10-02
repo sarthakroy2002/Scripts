@@ -43,6 +43,11 @@ if ! [ -d "$TC_DIR" ]; then
   fi
 fi
 
+# <---KERNELSU PATCH--->
+
+# Patch with latest KernelSU
+curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
+
 # <----START COMPILATION--->
 
 if [[ $1 = "-r" || $1 = "--regen" ]]; then
