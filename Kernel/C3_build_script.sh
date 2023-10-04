@@ -6,9 +6,9 @@ deps() {
 
     if [ ! -d "clang" ]; then
         if [ "${BRANCH}" = "R" ]; then
-            wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/tags/android-13.0.0_r63/clang-r450784d.tar.gz -O "aosp-clang.tar.gz"
+            wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/tags/android-14.0.0_r2/clang-r487747c.tar.gz -O "aosp-clang.tar.gz"
             mkdir clang && tar -xf aosp-clang.tar.gz -C clang && rm -rf aosp-clang.tar.gz
-            KBUILD_COMPILER_STRING="Clang 14 r450784d"
+            KBUILD_COMPILER_STRING="Clang 17.0.2 r487747c"
             PATH="${PWD}/clang/bin:${PATH}"
         else
             git clone --depth=1 https://gitlab.com/arrowos-project/android_prebuilts_clang_host_linux-x86_clang-r437112b clang
