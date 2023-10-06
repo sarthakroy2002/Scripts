@@ -6,6 +6,8 @@ declare -A osInfo=(
     [/etc/arch-release]=pacman
     [/etc/debian_version]=apt
     [/etc/SuSE-release]=zypper
+    [/etc/alpine-release]=apk
+    [/etc/gentoo-release]=emerge
 )
 
 package=""
@@ -19,7 +21,11 @@ done
 
 if [[ "$package" == "arch" || "$package" == "yum" ]]; then
     bash arch_envsetup.sh
-else 
+elif [[ "$package" == "apk" ]]; then
+    bash alpine_envsetup.sh
+elif [[ "$package" == "emerge" ]]; then
+    bash gentoo_envsetup.sh
+else
     bash ubuntu_envsetup.sh
 fi
 

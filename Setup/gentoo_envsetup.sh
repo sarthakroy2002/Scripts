@@ -1,12 +1,5 @@
 #!/bin/bash
 
-if [ -f /etc/gentoo-release ]; then
-    printf "%s\n" "Gentoo detected. Continuing..."
-else
-    echo "This script is only for Gentoo"
-    exit 1
-fi
-
 command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
