@@ -1,20 +1,23 @@
+#!/bin/bash
 # Detecting which System Package Manager is currently installed in system. 
 # Thanks to StackOverflow Community for this Idea.
-declare -A osInfo;
-osInfo[/etc/redhat-release]=yum
-osInfo[/etc/arch-release]=pacman
-osInfo[/etc/debian_version]=apt
-osInfo[/etc/SuSE-release]=zypper #No support for zypper Cunrently.
+declare -A osInfo=(
+    [/etc/redhat-release]=yum
+    [/etc/arch-release]=pacman
+    [/etc/debian_version]=apt
+    [/etc/SuSE-release]=zypper
+)
 
-for f in ${!osInfo[@]}
-do
-    if [[ -f $f ]];then
-        declare ${osInfo[$f]}="package"
+package=""
+
+for f in "${!osInfo[@]}"; do
+    if [[ -f $f ]]; then
+        package="${osInfo[$f]}"
+        break
     fi
 done
 
-if [ "package" == "arch" || "package" == "yum" ]
-then
+if [[ "$package" == "arch" || "$package" == "yum" ]]; then
     bash arch_envsetup.sh
 else 
     bash ubuntu_envsetup.sh
