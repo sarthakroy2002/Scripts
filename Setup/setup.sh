@@ -2,7 +2,7 @@
 # Detecting which System Package Manager is currently installed in system. 
 # Thanks to StackOverflow Community for this Idea.
 declare -A osInfo=(
-    [/etc/redhat-release]=yum
+    [/etc/dnf/dnf.conf]=dnf
     [/etc/arch-release]=pacman
     [/etc/debian_version]=apt
     [/etc/SuSE-release]=zypper
@@ -19,8 +19,10 @@ for f in "${!osInfo[@]}"; do
     fi
 done
 
-if [[ "$package" == "arch" || "$package" == "yum" ]]; then
+if [[ "$package" == "pacman" ]]; then
     bash arch_envsetup.sh
+elif [["$package" == "dnf"]]; then
+    bash fedora_envsetup.sh
 elif [[ "$package" == "apk" ]]; then
     bash alpine_envsetup.sh
 elif [[ "$package" == "emerge" ]]; then
