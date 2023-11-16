@@ -65,6 +65,13 @@ sticker() {
         -d chat_id="${chat_id}"
 }
 
+# Error Sticker
+error_sticker() {
+    curl -s -X POST https://api.telegram.org/bot"${token}"/sendSticker \
+        -d sticker="CAACAgQAAxkBAAEKxCplVkvohpIHdto0Sq0FNnsjpiFN6AACQAoAAmfRmFBaWxhVsThPHDME" \
+        -d chat_id="${chat_id}"
+}
+
 # Send Build Info
 sendinfo() {
     tg "
@@ -94,6 +101,7 @@ finderr() {
         -d "parse_mode=markdown" \
         -d sticker="CAACAgIAAxkBAAED3JViAplqY4fom_JEexpe31DcwVZ4ogAC1BAAAiHvsEs7bOVKQsl_OiME" \
         -d text="Build throw an error(s)"
+    error_sticker
     exit 1
 }
 
