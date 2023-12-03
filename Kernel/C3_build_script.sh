@@ -117,7 +117,6 @@ compile() {
         ARCH=$ARCH \
         CC="clang" \
         LLVM=1 \
-        LLVM_IAS=1 \
         CONFIG_NO_ERROR_ON_MISMATCH=y
 
     if ! [ -a "$IMAGE" ]; then
