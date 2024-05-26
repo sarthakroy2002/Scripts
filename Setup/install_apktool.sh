@@ -10,5 +10,6 @@ cp -r apktool /usr/local/bin
 chmod +x /usr/local/bin/apktool
 chmod +x /usr/local/bin/apktool.jar
 apktool --version
+rm -rf apktool apktool.jar
 
 echo "APKTOOL WAS INSTALLED"
