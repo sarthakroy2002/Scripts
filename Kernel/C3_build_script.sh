@@ -4,9 +4,9 @@
 deps() {
     echo "Cloning dependencies"
     if [ ! -d "clang" ]; then
-        wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/tags/android-14.0.0_r2/clang-r487747c.tar.gz -O "aosp-clang.tar.gz"
+        wget https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86/+archive/refs/tags/android-14.0.0_r50/clang-r510928.tar.gz -O "aosp-clang.tar.gz"
         mkdir clang && tar -xf aosp-clang.tar.gz -C clang && rm -rf aosp-clang.tar.gz
-        KBUILD_COMPILER_STRING="Clang 17.0.2 r487747c"
+        KBUILD_COMPILER_STRING="Clang 18.0.0 r510928"
         PATH="${PWD}/clang/bin:${PATH}"
     fi
     sudo apt install -y ccache
