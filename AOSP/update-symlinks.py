@@ -42,6 +42,7 @@ with open(input_file, 'w') as outfile:
             if '|' in line:
                 sha1sum = '|'+line.split('|')[1]
                 line=line.split('|')[0]
+            line = line.split(';SYMLINK=')[0]
             symlink_path = line.replace("mediatek", f"{soc}")
             symlink_path = symlink_path.lstrip('-')
             modified_line = f"{line};SYMLINK={symlink_path}{sha1sum}"
@@ -52,6 +53,7 @@ with open(input_file, 'w') as outfile:
             if '|' in line:
                 sha1sum = '|'+line.split('|')[1]
                 line=line.split('|')[0]
+            line = line.split(';SYMLINK=')[0]
             symlink_path = line.replace("mediatek", f"{soc}")
             symlink_path = symlink_path.lstrip('-')   
             modified_line = f"{line};SYMLINK={symlink_path}{sha1sum}"
@@ -62,6 +64,7 @@ with open(input_file, 'w') as outfile:
             if '|' in line:
                 sha1sum = '|'+line.split('|')[1]
                 line=line.split('|')[0]
+            line = line.split(';SYMLINK=')[0]
             symlink_path = line.replace("libSoftGatekeeper", "gatekeeper.default")
             symlink_path = symlink_path.lstrip('-')
             modified_line = f"{line};SYMLINK={symlink_path}{sha1sum}"
@@ -72,6 +75,7 @@ with open(input_file, 'w') as outfile:
             if '|' in line:
                 sha1sum = '|'+line.split('|')[1]
                 line=line.split('|')[0]
+            line = line.split(';SYMLINK=')[0]
             symlink_path = line.replace("libMcGatekeeper", "gatekeeper.trustonic")
             symlink_path = symlink_path.lstrip('-')
             modified_line = f"{line};SYMLINK={symlink_path}{sha1sum}"
@@ -82,6 +86,7 @@ with open(input_file, 'w') as outfile:
             if '|' in line:
                 sha1sum = '|'+line.split('|')[1]
                 line=line.split('|')[0]
+            line = line.split(';SYMLINK=')[0]
             symlink_path = line.replace("kmsetkey.trustonic", "kmsetkey.default")
             symlink_path = symlink_path.lstrip('-')
             modified_line = f"{line};SYMLINK={symlink_path}{sha1sum}"
@@ -92,6 +97,7 @@ with open(input_file, 'w') as outfile:
             if '|' in line:
                 sha1sum = '|'+line.split('|')[1]
                 line=line.split('|')[0]
+            line = line.split(';SYMLINK=')[0]
             symlink_path = line.replace("sensors.mediatek.V2.0", f"sensors.{soc}")
             symlink_path = symlink_path.lstrip('-')
             modified_line = f"{line};SYMLINK={symlink_path}{sha1sum}"
