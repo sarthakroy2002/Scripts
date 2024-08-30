@@ -14,19 +14,5 @@ git config --global user.email "sarthakroy2002@gmail.com"
 git config --global user.name "Sarthak Roy"
 echo 'Your Git config is set successfully'
 
-# Store my Git credentials (whenever needed to)
-# git config --global credential.helper store
-# echo 'Git will store your credentials globally'
-
 # Install repo
 mkdir ~/bin && PATH=~/bin:$PATH && curl https://storage.googleapis.com/git-repo-downloads/repo >~/bin/repo && chmod a+x ~/bin/repo
-
-# Setup Change-id hooks
-git config --global init.templatedir '~/.git-templates'
-mkdir -p ~/.git-templates/hooks
-curl -Lo .git/hooks/commit-msg https://raw.githubusercontent.com/sarthakroy2002/Scripts/main/commit-msg
-chmod 755 ~/.git-templates/hooks/commit-msg
-echo 'Change-id hooks are been setup successfully'
-
-# Setting up Ssh Key.
-bash sshid_setup.sh
